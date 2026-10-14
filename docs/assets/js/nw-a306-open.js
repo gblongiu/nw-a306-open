@@ -52,12 +52,12 @@
     ] }
   };
   const failures = {
-    android: { number: '01 / 06', depth: 'OPERATING-SYSTEM FAILURE', title: 'Android will not start.', description: 'Intact stock recovery is a possible remaining route, but applicable entry and accepted reinstall procedures are not established.', requirement: 'An authentic accepted package, independently reachable recovery and documented same-board restoration coverage.', fault: 4 },
-    slots: { number: '02 / 06', depth: 'BOTH SOFTWARE BOOT SLOTS', title: 'Neither slot starts.', description: 'A/B partition names do not prove that an independent fallback survives both failed slots or shared metadata damage.', requirement: 'Actual recovery placement, surviving loader dependencies, permitted entry and a matching accepted image set.', fault: 3 },
-    avb: { number: '03 / 06', depth: 'RECOVERY OR VERIFIED-BOOT METADATA', title: 'The trust chain breaks.', description: 'A reachable fastboot-like interface cannot be assumed to survive damaged recovery. Userspace fastboot may depend on it.', requirement: 'An entry independent of damaged recovery, accepted matching images and applicable rollback constraints.', fault: 2 },
-    partition: { number: '04 / 06', depth: 'STORAGE METADATA FAILURE', title: 'The partition map fails.', description: 'A working storage component is not enough when GPT or dynamic-partition metadata no longer describes usable images.', requirement: 'An authenticated reconstruction method, exact layout and explicit exclusions for per-device data.', fault: 1 },
-    loader: { number: '05 / 06', depth: 'EARLY-BOOT FAILURE', title: 'Linux never gets control.', description: 'Generic Qualcomm ROM/service behavior establishes no enabled, reachable or authenticated restoration route on this Walkman.', requirement: 'Device-applicable early entry, an accepted matching loader and genuine original-board restoration resources.', fault: 0 },
-    unique: { number: '06 / 06', depth: 'CALIBRATION OR SECURITY PROVISIONING', title: 'Unique state is lost.', description: 'Another player’s calibration, keys or protected state cannot be treated as a replacement for this board’s own provisioning.', requirement: 'A verified preservation or regeneration method and objective criteria for restored stock behavior.', fault: 0 }
+    android: { number: '01 / 06', depth: 'OPERATING-SYSTEM FAILURE', title: 'Android will not start.', description: 'Intact stock recovery is a possible remaining route, but applicable entry and accepted reinstall procedures are not established.', requirement: 'An authentic accepted package, independently reachable recovery and documented same-board restoration coverage.', states: ["unknown", "unknown", "unknown", "unknown", "affected", "unknown"] },
+    slots: { number: '02 / 06', depth: 'BOTH SOFTWARE BOOT SLOTS', title: 'Neither slot starts.', description: 'A/B partition names do not prove that an independent fallback survives both failed slots or shared metadata damage.', requirement: 'Actual recovery placement, surviving loader dependencies, permitted entry and a matching accepted image set.', states: ["unknown", "unknown", "affected", "dependent", "dependent", "unknown"] },
+    avb: { number: '03 / 06', depth: 'RECOVERY OR VERIFIED-BOOT METADATA', title: 'The trust chain breaks.', description: 'A reachable fastboot-like interface cannot be assumed to survive damaged recovery. Userspace fastboot may depend on it.', requirement: 'An entry independent of damaged recovery, accepted matching images and applicable rollback constraints.', states: ["unknown", "unknown", "dependent", "affected", "dependent", "unknown"] },
+    partition: { number: '04 / 06', depth: 'STORAGE METADATA FAILURE', title: 'The partition map fails.', description: 'A working storage component is not enough when GPT or dynamic-partition metadata no longer describes usable images.', requirement: 'An authenticated reconstruction method, exact layout and explicit exclusions for per-device data.', states: ["unknown", "affected", "dependent", "dependent", "dependent", "unknown"] },
+    loader: { number: '05 / 06', depth: 'EARLY-BOOT FAILURE', title: 'Linux never gets control.', description: 'Generic Qualcomm ROM/service behavior establishes no enabled, reachable or authenticated restoration route on this Walkman.', requirement: 'Device-applicable early entry, an accepted matching loader and genuine original-board restoration resources.', states: ["affected", "unknown", "dependent", "dependent", "dependent", "unknown"] },
+    unique: { number: '06 / 06', depth: 'CALIBRATION OR SECURITY PROVISIONING', title: 'Unique state is lost.', description: 'Another player’s calibration, keys or protected state cannot be treated as a replacement for this board’s own provisioning.', requirement: 'A verified preservation or regeneration method and objective criteria for restored stock behavior.', states: ["unknown", "unknown", "unknown", "dependent", "dependent", "affected"] }
   };
 
   // Arrow, Home and End navigation is shared by each real tab interface.
@@ -123,7 +123,10 @@
     $('#hardwareKnown').textContent = data.known;
     $('#hardwareMissing').textContent = data.missing;
     $('#hardwarePanel').setAttribute('aria-labelledby', button.id);
-    $$('[data-hardware-art]').forEach(node => node.classList.toggle('active', node.dataset.hardwareArt === id));
+    $$('[data-hardware-art]').forEach(node => {
+      node.classList.toggle('active', node.dataset.hardwareArt === id);
+      node.setAttribute('aria-pressed', String(node.dataset.hardwareArt === id));
+    });
     announce(`${data.name}. ${data.known} Still needed: ${data.missing}`);
   });
   bindTabs('[data-architecture]', button => {
@@ -145,17 +148,121 @@
     $('#systemFlow').replaceChildren(...nodes);
     announce(data.lead);
   });
-  bindTabs('[data-failure]', button => {
-    const data = failures[button.dataset.failure];
+  // These states describe the selected hypothetical failure, never measured
+  // device health. "Unknown" must not be styled or announced as a passing stage.
+  const dependencyAreas = [
+    { id: 'loader', title: 'Early boot', detail: 'Surviving early entry and acceptance of a matching service loader have not been established for this NW-A306.' },
+    { id: 'layout', title: 'Partition map', detail: 'GPT and dynamic-partition metadata describe different storage layers. Their actual condition and a reconstruction method are not established by this diagram.' },
+    { id: 'images', title: 'Boot / recovery images', detail: 'A/B software slots and recovery placement need an authentic selected image inventory. A second slot is not proof of an independent recovery path.' },
+    { id: 'trust', title: 'Verification', detail: 'Applicable signatures, AVB dependencies and rollback constraints need device-specific evidence. Format checks do not establish permission to execute an image.' },
+    { id: 'runtime', title: 'Android userspace', detail: 'The current Android runtime is distinct from early boot and recovery. Failure here does not reveal whether an independently reachable restoration interface survives.' },
+    { id: 'unique', title: 'Unique state', detail: 'Per-device calibration and security provisioning cannot be replaced with another player’s data. Preservation or regeneration is not verified.' }
+  ];
+  const stateNames = {
+    affected: 'Affected in scenario',
+    dependent: 'May be blocked',
+    unknown: 'Not established'
+  };
+  const failureDetails = {
+    android: {
+      runtime: 'Android cannot start in this scenario. This does not demonstrate that recovery or a service interface is reachable.'
+    },
+    slots: {
+      images: 'Both Android boot slots are unavailable in this scenario. Their existence does not establish an independent recovery image or fallback.',
+      trust: 'There may be no usable image to authenticate. This does not mean the verification implementation itself is damaged.',
+      runtime: 'Android cannot start through the two failed slots. Any surviving independent entry remains to be established.'
+    },
+    avb: {
+      images: 'Recovery or an image covered by the trust chain may be unavailable. The exact dependency depends on which metadata or image failed.',
+      trust: 'This scenario concerns recovery or AVB damage. Accepted restoration images and an entry independent of damaged recovery remain missing.',
+      runtime: 'A broken required verification chain may prevent Android from starting; actual policy and failure coverage need selected artifacts.'
+    },
+    partition: {
+      layout: 'The selected scenario damages GPT or dynamic-partition metadata. These are separate layers, and their repair requirements must not be conflated.',
+      images: 'Stored image bytes may still exist but may not be locatable through damaged metadata. No restoration method is implied.',
+      trust: 'Verification may be unable to locate the required images or descriptors. Metadata reconstruction and accepted images are separate requirements.',
+      runtime: 'Android may be unable to locate or mount required partitions. Storage-chip identity alone provides no repair procedure.'
+    },
+    loader: {
+      loader: 'An early loading stage fails before Linux takes control. A surviving ROM or service interface is only a possibility, not a verified recovery route.',
+      images: 'Later image bytes may be intact but unreachable through the failed loader. Their readability and acceptance remain unverified.',
+      trust: 'Later authentication cannot be assumed reachable after the early-loader failure. This does not establish damage to every trust stage.',
+      runtime: 'Linux and Android may never receive control. Android-based tooling therefore cannot be assumed to remain available.'
+    },
+    unique: {
+      unique: 'Calibration or security provisioning is lost in this scenario. No valid same-board preservation or regeneration method is established.',
+      trust: 'Security provisioning can affect image or service acceptance. The effect depends on the exact data lost; it is not a claim that every key or boot stage is damaged.',
+      runtime: 'The effect ranges from lost calibrated functionality to failure to start, depending on the missing state. Another unit’s state is not a verified substitute.'
+    }
+  };
+  let activeFailure = 'android';
+  let selectedDependency = 'runtime';
+
+  function inspectDependency(id, shouldAnnounce = true) {
+    const index = dependencyAreas.findIndex(area => area.id === id);
+    if (index < 0) return;
+    selectedDependency = id;
+    const area = dependencyAreas[index];
+    const state = failures[activeFailure].states[index];
+    const explanation = failureDetails[activeFailure][id] || area.detail;
+    $$('[data-area]').forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.area === id));
+    });
+    $('#dependencyNumber').textContent = String(index + 1).padStart(2, '0');
+    $('#dependencyStatus').textContent = stateNames[state].toUpperCase();
+    $('#dependencyTitle').textContent = area.title;
+    $('#dependencyExplanation').textContent = explanation;
+    $('#dependencyInspector').dataset.state = state;
+    if (shouldAnnounce) announce(`${area.title}: ${stateNames[state]}. ${explanation}`);
+  }
+
+  function selectFailure(id, button, shouldAnnounce = true) {
+    const data = failures[id];
+    if (!data || data.states.length !== dependencyAreas.length) return;
+    activeFailure = id;
+    $('.recovery-console').dataset.scenario = id;
     $('#failureNumber').textContent = data.number;
     $('#failureDepth').textContent = data.depth;
     $('#failureTitle').textContent = data.title;
     $('#failureDescription').textContent = data.description;
     $('#failureRequirement').textContent = data.requirement;
     $('#failurePanel').setAttribute('aria-labelledby', button.id);
-    $$('.failure-visual i').forEach((node, index) => node.classList.toggle('fault', index >= data.fault));
-    announce(`${data.title} ${data.requirement} Original-board recovery is not established.`);
+    $$('[data-area]').forEach((node, index) => {
+      const state = data.states[index];
+      node.dataset.state = state;
+      $('.dependency-state', node).textContent = stateNames[state];
+      node.setAttribute('aria-label', `${dependencyAreas[index].title}: ${stateNames[state]}. Inspect dependency.`);
+    });
+    const focus = dependencyAreas[data.states.indexOf('affected')];
+    inspectDependency(focus.id, false);
+    if (shouldAnnounce) {
+      const impacted = dependencyAreas.filter((_, i) => data.states[i] === 'affected').map(area => area.title).join(', ');
+      const dependent = data.states.filter(state => state === 'dependent').length;
+      announce(`${data.title} ${impacted} affected in this scenario; ${dependent} dependency areas may be blocked. Other areas are not established. Original-board recovery is not verified.`);
+    }
+  }
+  bindTabs('[data-failure]', button => selectFailure(button.dataset.failure, button));
+  const areaButtons = $$('[data-area]');
+  areaButtons.forEach((button, index) => {
+    button.addEventListener('click', () => inspectDependency(button.dataset.area));
+    button.addEventListener('keydown', event => {
+      let next;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % areaButtons.length;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index + areaButtons.length - 1) % areaButtons.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = areaButtons.length - 1;
+      if (next === undefined) return;
+      event.preventDefault();
+      areaButtons[next].focus();
+      inspectDependency(areaButtons[next].dataset.area);
+    });
   });
+  selectFailure('android', $('#fail-android'), false);
+
+  // The component drawing and the labeled tabs control the same inspector.
+  $$('[data-chip]').forEach(button => button.addEventListener('click', () => {
+    $(`[data-hardware="${button.dataset.chip}"]`).click();
+  }));
 
   // The illustration explores layers, never presents an invented circuit layout.
   $('#explodeButton').addEventListener('click', event => {
@@ -462,6 +569,7 @@
   function updateMotion(state) {
     motionPaused = state;
     document.body.classList.toggle('motion-paused', state);
+    if (state) $('#devicePivot').style.transform = '';
     $('#motionToggle').setAttribute('aria-pressed', String(state));
     $('#motionToggle').textContent = state ? 'Resume motion' : 'Pause motion';
     syncAnimation();
@@ -480,15 +588,29 @@
     const rect = hero.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - .5;
     const y = (event.clientY - rect.top) / rect.height - .5;
-    $('#devicePivot').style.transform = `rotateX(${8 - y * 4}deg) rotateY(${-20 + x * 7}deg) rotateZ(11deg)`;
+    $('#devicePivot').style.transform = `rotateX(${11 - y * 4}deg) rotateY(${-24 + x * 7}deg) rotateZ(12deg)`;
   });
   hero.addEventListener('pointerleave', () => { $('#devicePivot').style.transform = ''; });
   $('#explodeButton').addEventListener('click', () => { $('#devicePivot').style.transform = ''; });
+
+  const chapterLinks = $$('.nav a');
+  const chapterSections = chapterLinks.map(link => $(link.getAttribute('href')));
+  function updateChapter() {
+    let selected = null;
+    chapterSections.forEach((section, index) => {
+      if (section && section.getBoundingClientRect().top <= window.innerHeight * 0.4) selected = chapterLinks[index];
+    });
+    chapterLinks.forEach(link => {
+      if (link === selected) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
 
   let progressScheduled = false;
   function updateProgress() {
     const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     $('#readingProgress').style.width = `${Math.max(0, Math.min(100, window.scrollY / max * 100))}%`;
+    updateChapter();
     progressScheduled = false;
   }
   window.addEventListener('scroll', () => { if (!progressScheduled) { progressScheduled = true; requestAnimationFrame(updateProgress); } }, { passive: true });
