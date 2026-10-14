@@ -1,0 +1,156 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111413">
+  <meta name="description" content="Keep the hardware. Change the system. Independent Linux and Rockbox research for Sony's NW-A306, with a working ARM64 prototype and a documented path toward an open music player.">
+  <meta property="og:title" content="NW-A306 Open · A player. Not a platform.">
+  <meta property="og:description" content="Independent Linux and Rockbox research for the Sony NW-A306. Explore the prototype, hardware evidence and engineering still ahead.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://gblongiu.github.io/nw-a306-open/assets/images/social-preview.png">
+  <title>NW-A306 Open · A player. Not a platform.</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="favicon.ico">
+  <link rel="stylesheet" href="assets/css/nw-a306-open.css?v=2.1.0">
+  <script src="assets/js/nw-a306-open.js?v=2.1.0" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="header" id="top">
+  <a class="wordmark" href="#top" aria-label="NW-A306 Open, back to top"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>NW-A306 <b>OPEN</b></span></a>
+  <nav class="nav" aria-label="Chapters"><a href="#idea">The idea</a><a href="#prototype">The prototype</a><a href="#hardware">The hardware</a><a href="#path">The path</a></nav>
+  <button class="evidence-switch js-only" id="evidenceToggle" aria-pressed="false" aria-controls="evidenceDrawer"><span class="toggle-track" aria-hidden="true"><i></i></span><span id="evidenceToggleLabel">Evidence mode</span></button>
+</header>
+<div class="reading-progress" aria-hidden="true"><i id="readingProgress"></i></div>
+<div class="evidence-ribbon" hidden id="evidenceRibbon"><span><i></i> Evidence view active</span><span class="ribbon-detail">Sources and verification limits are now visible.</span><button id="reopenEvidence">Open source index <span aria-hidden="true">↗</span></button></div>
+<main id="main">
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-light" aria-hidden="true"></div>
+    <div class="hero-typography">
+      <p class="eyebrow"><span class="live-dot"></span> INDEPENDENT FIRMWARE RESEARCH <span class="edition">/ 001</span></p>
+      <h1 id="heroTitle">A player.<br>Not a<br><span>platform.</span></h1>
+      <p class="hero-summary">Keep the hardware. Change the system.<br>An open Linux and Rockbox environment for the Sony NW-A306, built around your local music.</p>
+      <div class="hero-actions"><a class="primary-link" href="#prototype">Explore the prototype <span aria-hidden="true">↘</span></a><a class="quiet-link" href="https://github.com/gblongiu/nw-a306-open">Source code <span aria-hidden="true">↗</span></a></div>
+      <p class="hero-status"><span class="status-outline" aria-hidden="true"></span> Running in ARM64 simulation.<br><span>Not yet running on the Walkman.</span></p>
+      <button class="source-note" data-source="prototype">01 / Prototype scope and recorded results <span aria-hidden="true">↗</span></button>
+    </div>
+    <div class="hero-object" id="heroObject">
+      <div class="object-orbits" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+      <span class="object-coordinate coord-top" aria-hidden="true">01 / FORM STUDY</span>
+      <div class="device-space" id="deviceSpace" role="img" aria-label="Original concept illustration of an open music player. This is not a photo, an actual Rockbox screen, or a verified Sony hardware layout.">
+        <div class="device-pivot" id="devicePivot">
+          <div class="device-layer layer-chassis"><div class="chassis-inner"></div><div class="battery-study"><span>ENERGY / 01</span><i></i><small>FORM STUDY</small></div><div class="chassis-screw s1"></div><div class="chassis-screw s2"></div><div class="chassis-screw s3"></div><div class="chassis-screw s4"></div></div>
+          <div class="device-layer layer-board"><div class="board-line line-1"></div><div class="board-line line-2"></div><div class="board-line line-3"></div><div class="board-chip bc1">APPLICATION<br>PROCESSOR</div><div class="board-chip bc2">STORAGE</div><div class="board-chip bc3">POWER</div><div class="board-components"></div><span class="board-study-label">TOPOLOGY NOT REPRESENTATIVE</span></div>
+          <div class="device-layer layer-front">
+            <div class="device-edge"></div><div class="side-controls"><i></i><i></i><i></i><i></i></div>
+            <div class="device-topline"><span>OPEN</span><span class="tiny-battery"></span></div>
+            <div class="device-screen">
+              <div class="screen-top"><span>LOCAL COLLECTION</span><span>01 / 12</span></div>
+              <div class="album-art"><div class="art-sphere"></div><div class="art-orbit a1"></div><div class="art-orbit a2"></div><span class="art-type">SOUND<br>WITHOUT<br>THE NOISE.</span><span class="art-edition">NO. 001</span></div>
+              <div class="track-label"><b>Untethered</b><span>Local signals · Side A</span></div>
+              <div class="screen-progress"><i></i></div><div class="screen-time"><span>02:36</span><span>05:12</span></div>
+              <div class="screen-controls"><span aria-hidden="true">≡</span><span class="previous-symbol" aria-hidden="true"></span><span class="play-symbol" aria-hidden="true"></span><span class="next-symbol" aria-hidden="true"></span><span aria-hidden="true">↻</span></div>
+              <div class="screen-foot"><span>LOCAL AUDIO</span><span>CONCEPT UI</span></div>
+            </div>
+            <div class="device-bottomline"><span>NW-A306</span><span>OPEN / STUDY 01</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="object-caption"><span id="objectCaption">Interface concept. Not a running Sony device.</span><button class="object-control js-only" id="explodeButton" aria-pressed="false">Separate layers <span aria-hidden="true">↗</span></button></div>
+    </div>
+    <div class="hero-baseline"><span>DESIGNED FOR THE MUSIC YOU OWN</span><span class="hero-baseline-right">SONY NW-A306 / ICX1301 <span class="divider">·</span> LINUX + ROCKBOX</span><a href="#idea" aria-label="Continue to the idea">↓</a></div>
+  </section>
+
+  <section class="idea paper section-pad" id="idea" aria-labelledby="ideaTitle">
+    <div class="chapter-label"><span>01 / THE IDEA</span><span>LESS BETWEEN YOU AND YOUR MUSIC</span></div>
+    <div class="idea-heading"><h2 id="ideaTitle">The hardware stays.<br><span class="serif">The dependency goes.</span></h2><p>A dedicated player should start with your library. Not a launcher, an account, or a stack of services that local playback does not need.</p></div>
+    <div class="principles">
+      <article><span class="principle-number">I.</span><h3>Power on.<br>Press play.</h3><p>The intended system boots into Rockbox directly. Android is not an intermediate step.</p></article>
+      <article><span class="principle-number">II.</span><h3>Your files.<br>Your collection.</h3><p>Local music and expandable storage. No cloud account or network connection required for core playback.</p></article>
+      <article><span class="principle-number">III.</span><h3>Open to study.<br>Built to keep.</h3><p>Documented source, reproducible builds and an interface that can evolve beyond the stock software.</p></article>
+    </div>
+    <p class="section-footnote">These are product goals. Better sound, battery life and startup speed remain goals to measure, not results to claim.</p>
+  </section>
+
+  <section class="prototype section-pad" id="prototype" aria-labelledby="prototypeTitle">
+    <div class="chapter-label"><span>02 / THE PROTOTYPE</span><span class="classified class-virtual">VERIFIED IN A VIRTUAL MACHINE</span></div>
+    <div class="section-heading"><h2 id="prototypeTitle">Not just a<br><span class="serif">paper exercise.</span></h2><p>Actual AArch64 Rockbox runs inside an Android-free Linux guest. Playback, input and changing display output have been checked against independent captures.</p></div>
+    <div class="bench" data-evidence="virtual">
+      <div class="bench-toolbar"><span class="micro">PLAYBACK BENCH / RECORDED RESULTS</span><div class="segmented js-only" role="tablist" aria-label="Playback format"><button role="tab" id="tab-wav" aria-selected="true" aria-controls="codecPanel" data-codec="wav">WAV</button><button role="tab" id="tab-flac" aria-selected="false" aria-controls="codecPanel" tabindex="-1" data-codec="flac">FLAC</button><button role="tab" id="tab-opus" aria-selected="false" aria-controls="codecPanel" tabindex="-1" data-codec="opus">OPUS</button></div></div>
+      <div class="bench-body" role="tabpanel" id="codecPanel" aria-labelledby="tab-wav" tabindex="0"><div class="bench-readout"><span class="micro" id="codecCategory">REFERENCE COMPARISON</span><strong id="codecResult">Exact<span>PCM</span></strong><p id="codecDescription">Every captured music sample matches the WAV reference.</p><div class="bench-parameters"><div><span>SAMPLE RATE</span><b id="codecRate">44.1 kHz</b></div><div><span>MUSIC FRAMES</span><b id="codecFrames">99,226</b></div></div></div><div class="scope codec-study" data-format="wav" aria-labelledby="scopeTitle" aria-describedby="scopeSummary">
+        <div class="scope-top"><span class="scope-light"></span><span>FORMAT STUDY / NOT CAPTURED AUDIO</span><span id="scopeFormat">WAV</span></div>
+        <div class="scope-heading"><span class="micro" id="scopeKind">UNCOMPRESSED PCM</span><h3 id="scopeTitle">Samples, directly.</h3></div>
+        <div class="scope-visual"><canvas id="scopeCanvas" aria-hidden="true"></canvas><noscript><p class="scope-static">PCM samples → read samples → PCM output.<br>Enable JavaScript to explore the format diagrams.</p></noscript></div>
+        <div class="scope-route" aria-label="Illustrated decoding path"><span id="scopeInput">PCM samples</span><i aria-hidden="true">→</i><span id="scopeProcess">Read samples</span><i aria-hidden="true">→</i><b id="scopeOutput">PCM output</b></div>
+        <div class="scope-explanation"><p id="scopeSummary">The PCM WAV fixture stores sample values directly. FLAC made from the same PCM can recover identical samples.</p><a id="codecFormatLink" href="https://xiph.org/flac/documentation_format_overview.html" target="_blank" rel="noopener noreferrer" hidden>Lossless coding explained <span aria-hidden="true">↗</span></a></div>
+        <div class="scope-bottom"><span>ILLUSTRATIVE DATA FLOW</span><span>NOT A FILE-SIZE COMPARISON</span></div>
+      </div></div>
+      <div class="bench-note" id="codecNote">Exact fixture reproduction in the generic ARM64 guest does not establish physical output fidelity on the Sony.</div>
+    </div>
+    <div class="proof-ledger"><div><span class="proof-value">10<span>/10</span></span><b>Application scenarios</b><p>Playback, controls, resume and error handling.</p></div><div><span class="proof-value">38<span>/38</span></span><b>Codec checks</b><p>Native, ARM64 and native ASan; leak checks disabled.</p></div><div><span class="proof-value">42<span>/42</span></span><b>Reproduced outputs</b><p>Two forced builds at the same configured prefix.</p></div><div><span class="proof-value">320<span>×480</span></span><b>Verified virtual scanout</b><p>Independent QEMU captures match rendered frames.</p></div></div>
+    <button class="source-note" data-source="playback">02 / Recorded playback, rebuild and scanout evidence <span aria-hidden="true">↗</span></button>
+    <div class="limitations-row"><span class="micro">STILL OPEN</span><p>Chained Opus, forced resampling quality, cross-rate gapless playback and reliable ARM64 sanitizer operation. No physical audio-quality or battery-life claim.</p></div>
+  </section>
+
+  <section class="hardware paper section-pad" id="hardware" aria-labelledby="hardwareTitle">
+    <div class="chapter-label"><span>03 / THE HARDWARE</span><span class="classified class-sample">PHOTOGRAPHED CERTIFICATION SAMPLE</span></div>
+    <div class="section-heading"><h2 id="hardwareTitle">A known platform.<br><span class="serif">An uncharted board.</span></h2><p>The FCC photographs replace guesses with component markings. They do not reveal the selected device tree, electrical settings or the exact revision inside the owner's player.</p></div>
+    <div class="hardware-workspace" data-evidence="sample">
+      <div class="board-visual" aria-label="Illustrated component study. Placements and traces are conceptual, not a Sony schematic.">
+        <div class="board-corner tl"></div><div class="board-corner tr"></div><div class="board-corner bl"></div><div class="board-corner br"></div>
+        <span class="board-caption-top">SODAGREEN / M/B REV. 1.03</span>
+        <svg class="board-traces" viewBox="0 0 620 510" fill="none" aria-hidden="true"><path d="M80 60H540V445H80Z"/><path d="M138 120H310V199M145 130H300V199M155 140H289V199M164 150H278V199M176 160H267V199M206 370V295M217 382V295M228 394V295M239 405V295M314 229H432V136M314 242H444V148M314 253H456V161M314 267H468V173M407 318V361H478M396 329V372H490M382 339V384H500"/><path d="M93 215H158M93 225H158M93 235H158M93 245H158M93 255H158M490 248H527M490 258H527M490 268H527M490 278H527"/><circle cx="80" cy="60" r="5"/><circle cx="540" cy="60" r="5"/><circle cx="80" cy="445" r="5"/><circle cx="540" cy="445" r="5"/></svg>
+        <div class="board-plate"><span class="trace-field"></span><div class="chip-marker chip-soc active" data-hardware-art="soc"><i></i><small>QUALCOMM</small><strong>QCS2290</strong><span>01</span></div><div class="chip-marker chip-pmic" data-hardware-art="pmic"><i></i><small>QUALCOMM</small><strong>PM4125</strong><span>02</span></div><div class="chip-marker chip-storage" data-hardware-art="storage"><i></i><small>SAMSUNG</small><strong>KLMBG2JETD</strong><span>03</span></div><div class="board-contact"></div><div class="board-code">M/B<br>1.03</div></div>
+        <span class="board-caption-bottom">COMPONENT STUDY / PLACEMENTS ARE CONCEPTUAL</span>
+      </div>
+      <div class="hardware-inspector"><div class="hardware-tabs js-only" role="tablist" aria-label="Hardware component"><button role="tab" id="hw-soc" aria-selected="true" aria-controls="hardwarePanel" data-hardware="soc"><span>01</span> Compute <span>↗</span></button><button role="tab" id="hw-pmic" aria-selected="false" tabindex="-1" aria-controls="hardwarePanel" data-hardware="pmic"><span>02</span> Power <span>↗</span></button><button role="tab" id="hw-storage" aria-selected="false" tabindex="-1" aria-controls="hardwarePanel" data-hardware="storage"><span>03</span> Storage <span>↗</span></button></div>
+      <div class="hardware-panel" id="hardwarePanel" role="tabpanel" aria-labelledby="hw-soc" tabindex="0"><p class="micro" id="hardwareCategory">APPLICATION PROCESSOR</p><h3 id="hardwareName">QCS2290</h3><p id="hardwareDescription">A visible Qualcomm marking narrows the processor family. The generic ARM64 prototype exercises the software architecture, not this physical chip.</p><dl><div><dt>Established</dt><dd id="hardwareKnown">Marking visible on the FCC sample.</dd></div><div><dt>Still needed</dt><dd id="hardwareMissing">Selected board configuration, boot handoff and peripheral bindings.</dd></div></dl><a class="text-link dark-link" href="https://github.com/gblongiu/nw-a306-open/blob/main/docs/m7-fcc-evidence.md">Read the photographic findings <span aria-hidden="true">↗</span></a></div></div>
+    </div>
+    <div class="archive-line"><span class="micro">EVIDENCE COLLECTION</span><div><strong>43</strong><span>PDF exhibits</span></div><div><strong>594</strong><span>pages traversed</span></div><div><strong>31</strong><span>catalog hashes match</span></div><p>12 documents have no published hash. The 29 two-byte size discrepancies are metadata differences, not failed checksums.</p></div>
+    <button class="source-note" data-source="hardware">03 / Sample applicability and corrected provenance audit <span aria-hidden="true">↗</span></button>
+  </section>
+
+  <section class="architecture section-pad" id="architecture" aria-labelledby="architectureTitle">
+    <div class="chapter-label"><span>04 / THE SYSTEM</span><span>AN INTERFACE IS NOT A BOOT PATH</span></div>
+    <div class="section-heading"><h2 id="architectureTitle">One destination.<br><span class="serif">Two very different paths.</span></h2><p>The application runs. Making the Walkman start it independently requires a compatible handoff, explicit initialization ownership and an accepted boot path.</p></div>
+    <div class="architecture-selector segmented js-only" role="tablist" aria-label="Architecture view"><button role="tab" id="arch-virtual" data-architecture="virtual" aria-selected="true" aria-controls="architecturePanel">Implemented <span>ARM64 VM</span></button><button role="tab" id="arch-target" data-architecture="target" aria-selected="false" tabindex="-1" aria-controls="architecturePanel">Intended <span>NW-A306</span></button></div>
+    <div id="architecturePanel" class="architecture-panel" role="tabpanel" aria-labelledby="arch-virtual" tabindex="0" data-mode="virtual">
+      <div class="architecture-intro"><span class="classified class-virtual" id="architectureBadge">VERIFIED VIRTUAL PATH</span><p id="architectureLead">A minimal Linux guest starts Rockbox without Android userspace.</p></div>
+      <div class="system-flow" id="systemFlow"><div class="flow-node"><span>01 / ENTRY</span><b>QEMU virt</b><small>Generic AArch64 machine</small><em>Recorded</em></div><div class="flow-node"><span>02 / KERNEL</span><b>ARM64 Linux</b><small>Alpine kernel + BusyBox initramfs</small><em>Recorded</em></div><div class="flow-node"><span>03 / PLAYER</span><b>Rockbox</b><small>SDL application + codecs</small><em>Recorded</em></div><div class="flow-node"><span>04 / INTERFACES</span><b>Virtual devices</b><small>ALSA · evdev · DRM/KMS</small><em>Recorded</em></div></div>
+      <div class="architecture-foot"><span id="architectureFoot">No Android userspace, network, disk, USB or physical-device passthrough in the recorded guest.</span><button class="text-link" data-source="architecture">Source + limits <span aria-hidden="true">↗</span></button></div>
+    </div>
+    <div class="gate-heading"><span class="micro">THE FOUR DEPLOYMENT DEPENDENCIES</span><p>Each must be resolved on the actual platform.</p></div>
+    <div class="gate-list">
+      <details><summary><span class="gate-number">01</span><h3>Accepted execution</h3><span class="gate-state">UNRESOLVED</span><span class="plus" aria-hidden="true"></span></summary><div class="gate-content"><p>A stock kernel can contain support for non-Android init without accepting a modified ramdisk or root filesystem. The device-specific selection mechanism remains unknown.</p><a href="https://github.com/gblongiu/nw-a306-open/blob/main/docs/m9-authentication-boundaries.md">Authentication boundaries ↗</a></div></details>
+      <details><summary><span class="gate-number">02</span><h3>Selected board resources</h3><span class="gate-state">UNRESOLVED</span><span class="plus" aria-hidden="true"></span></summary><div class="gate-content"><p>The correct DTB/DTBO, matching images, final kernel/module configuration and peripheral firmware cannot be replaced by settings from a related Qualcomm board.</p><a href="https://github.com/gblongiu/nw-a306-open/blob/main/docs/m9-boot-artifact-inventory.md">Boot-artifact inventory ↗</a></div></details>
+      <details><summary><span class="gate-number">03</span><h3>Safe initialization</h3><span class="gate-state">UNRESOLVED</span><span class="plus" aria-hidden="true"></span></summary><div class="gate-content"><p>The 13-role userspace contract tests prerequisites and failure propagation. It does not supply genuine audio calibration, regulator sequencing or complete thermal and watchdog ownership.</p><a href="https://github.com/gblongiu/nw-a306-open/blob/main/docs/m9-stock-kernel-userspace.md">Userspace dependency contract ↗</a></div></details>
+      <details><summary><span class="gate-number">04</span><h3>Original-board restoration</h3><span class="gate-state">UNRESOLVED</span><span class="plus" aria-hidden="true"></span></summary><div class="gate-content"><p>A reset, a routine update and replacement of the product are not equivalent to restoring a damaged boot chain on the original board. Restoration must cover the failure states introduced by an experiment.</p><a href="https://github.com/gblongiu/nw-a306-open/blob/main/docs/m9-recovery-readiness.md">Recovery readiness ↗</a></div></details>
+    </div>
+    <button class="source-note" data-source="userspace">04 / The stock-kernel hypothesis and 13-role contract <span aria-hidden="true">↗</span></button>
+  </section>
+
+  <section class="recovery section-pad" id="recovery" aria-labelledby="recoveryTitle">
+    <div class="chapter-label"><span>05 / RECOVERABILITY</span><span>PROTECT THE ORIGINAL MACHINE</span></div>
+    <div class="recovery-layout"><div class="recovery-copy"><h2 id="recoveryTitle">A way in.<br><span class="serif">A way back.</span></h2><p>Opening a device is not a reason to lose it. Each failure reaches a different boundary. An available update is not evidence of a surviving recovery route.</p><p class="subdued">Explore the failure model. This is a requirements view, not a recovery tool or a set of device instructions.</p><button class="text-link" data-source="recovery">Inspect recovery evidence <span aria-hidden="true">↗</span></button></div>
+    <div class="recovery-console" data-evidence="unknown"><div class="console-top"><span class="micro">FAILURE-STATE EXPLORER</span><span id="failureNumber">01 / 06</span></div><div class="failure-tabs js-only" role="tablist" aria-label="Failure state"><button role="tab" data-failure="android" id="fail-android" aria-controls="failurePanel" aria-selected="true">Android</button><button role="tab" data-failure="slots" id="fail-slots" aria-controls="failurePanel" aria-selected="false" tabindex="-1">Both slots</button><button role="tab" data-failure="avb" id="fail-avb" aria-controls="failurePanel" aria-selected="false" tabindex="-1">Recovery / AVB</button><button role="tab" data-failure="partition" id="fail-partition" aria-controls="failurePanel" aria-selected="false" tabindex="-1">Partition map</button><button role="tab" data-failure="loader" id="fail-loader" aria-controls="failurePanel" aria-selected="false" tabindex="-1">Early loader</button><button role="tab" data-failure="unique" id="fail-unique" aria-controls="failurePanel" aria-selected="false" tabindex="-1">Unique state</button></div><div class="failure-panel" id="failurePanel" role="tabpanel" aria-labelledby="fail-android" tabindex="0"><div class="failure-visual" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="fault"></i><i class="fault"></i><span></span></div><p class="micro" id="failureDepth">OPERATING-SYSTEM FAILURE</p><h3 id="failureTitle">Android will not start.</h3><p id="failureDescription">Intact stock recovery is a possible remaining route, but applicable entry and accepted reinstall procedures are not established.</p><div class="failure-requirement"><span>PROOF STILL NEEDED</span><p id="failureRequirement">An authentic accepted package, independently reachable recovery and documented same-board restoration coverage.</p></div><div class="unresolved-verdict"><i></i> Original-board recovery not established</div></div></div></div>
+    <button class="source-note" data-source="recovery">05 / Failure-state coverage, not a validated recovery procedure <span aria-hidden="true">↗</span></button>
+  </section>
+
+  <section class="path paper section-pad" id="path" aria-labelledby="pathTitle">
+    <div class="chapter-label"><span>06 / THE PATH FORWARD</span><span>INDEPENDENT RESEARCH. MEASURABLE PROGRESS.</span></div>
+    <div class="section-heading"><h2 id="pathTitle">From a working prototype<br><span class="serif">to a working player.</span></h2><p>The next useful step is better evidence from the actual platform, not another generic demo. Device interaction is a separate, bounded investigation.</p></div>
+    <div class="next-steps"><article><span class="step-index">01</span><div class="step-rule"></div><p class="micro">OBSERVE</p><h3>Read the real system.</h3><p>Prepare an allowlisted, logged acquisition workflow. Distinguish readable live-tree properties from raw firmware images and keep device data local.</p><span class="step-status">Acquisition tooling is planned, not implemented</span></article><article><span class="step-index">02</span><div class="step-rule"></div><p class="micro">RESOLVE</p><h3>Establish the contracts.</h3><p>Bind boot, board configuration, module readiness, firmware delivery and protection ownership to authentic selected artifacts.</p><span class="step-status">Published sources are not the selected build</span></article><article><span class="step-index">03</span><div class="step-rule"></div><p class="micro">BRING UP</p><h3>Make it a music player.</h3><p>After execution and recovery are established, integrate real input, display, storage and bounded audio. Then measure stability and battery life.</p><span class="step-status">Physical integration has not started</span></article></div>
+    <div class="success-line"><span class="micro">DONE MEANS</span><p>Direct boot. Local playback. Physical controls. Safe charging.<br>Repeatable builds. Dependable restoration.</p></div>
+    <button class="source-note" data-source="roadmap">06 / Current scope and next engineering dependencies <span aria-hidden="true">↗</span></button>
+  </section>
+
+  <section class="closing section-pad" aria-labelledby="closingTitle"><div class="closing-head"><p class="eyebrow">SOURCE AVAILABLE / GPL-2.0-OR-LATER</p><span class="closing-mark" aria-hidden="true">↗</span></div><h2 id="closingTitle">Make the player<br><span class="serif">worth keeping.</span></h2><div class="closing-bottom"><p>The research, tools and patches are open.<br>The next chapter is in the hardware.</p><a class="closing-link" href="https://github.com/gblongiu/nw-a306-open">Explore the repository <span aria-hidden="true">↗</span></a></div></section>
+</main>
+<footer class="footer"><a class="wordmark" href="#top"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>NW-A306 <b>OPEN</b></span></a><p>Independent project. Not affiliated with Sony or the Rockbox project.<br>Research snapshot · 14 October 2026. Illustrations are original concept studies.</p><div class="footer-actions"><button id="motionToggle" class="js-only" aria-pressed="false">Pause motion</button><a href="https://github.com/gblongiu/nw-a306-open/blob/main/docs/licensing.md">License ↗</a><a href="#top">Back to top ↑</a></div></footer>
+<div class="sr-only" id="liveStatus" role="status" aria-live="polite"></div>
+<dialog class="evidence-drawer" id="evidenceDrawer" aria-labelledby="evidenceTitle"><div class="drawer-head"><span class="micro">THE SOURCE INDEX</span><button class="close-drawer" id="closeEvidence" aria-label="Close source index">×</button></div><div class="drawer-intro"><span class="eyebrow">EVIDENCE MODE / ACTIVE</span><h2 id="evidenceTitle">Every claim.<br><span class="serif">A traceable source.</span></h2><p>Closing this panel keeps source notes visible on the page. No illustration is evidence of physical operation.</p></div><div class="evidence-filters" role="group" aria-label="Filter source records"><button data-filter="all" aria-pressed="true">All</button><button data-filter="virtual" aria-pressed="false">Virtual tests</button><button data-filter="sample" aria-pressed="false">Board evidence</button><button data-filter="unknown" aria-pressed="false">Open questions</button></div><div class="evidence-count" id="evidenceCount" role="status">Source records</div><div class="evidence-records" id="evidenceRecords"></div><div class="drawer-bottom"><button id="exitEvidence">Exit evidence mode <span aria-hidden="true">↗</span></button></div></dialog>
+<noscript><div class="no-script-note">Interactive views require JavaScript. The proposal remains readable; the linked technical reports contain the full findings.</div></noscript>
+</body>
+</html>
