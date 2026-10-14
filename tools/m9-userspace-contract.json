@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "context": "unselected-source-contract",
+  "nodes": [
+    {"id": "handoff", "requires": [], "basis": "requirement", "source": "M9-A: accepted image/DT/init selection and restoration contract remain unresolved"},
+    {"id": "board", "requires": ["handoff"], "basis": "requirement", "source": "M9-U: selected build, DT, resources, firmware and safety ownership required"},
+    {"id": "early_protection", "requires": ["board"], "basis": "requirement", "source": "M3 B3/B4/B5; M9-S4: protection and verified mute ownership before blocking initialization"},
+    {"id": "bootstrap", "requires": ["early_protection"], "basis": "requirement", "source": "M8 init/main.c; M9-S2/S3: independent init, device nodes and root-critical drivers/files already available"},
+    {"id": "storage", "requires": ["bootstrap"], "basis": "requirement", "source": "M8 SDHCI audit; M9-AOSP: authentic mount map, logical mapping and persist ownership"},
+    {"id": "firmware_delivery", "requires": ["storage"], "basis": "published-source", "source": "M8 firmware_loader/main.c:283-352; fallback.c:542-701: files and required event consumer ready"},
+    {"id": "modules", "requires": ["firmware_delivery"], "basis": "published-source", "source": "M9-S1/S2: explicit signed ABI-matched module set or verified built-in coverage; no assumed autoload"},
+    {"id": "peripherals", "requires": ["modules"], "basis": "published-source", "source": "M9-S5: selected DT resources and firmware authentication/readiness, not only file presence"},
+    {"id": "display_input", "requires": ["peripherals"], "basis": "requirement", "source": "M4 I3/I4: authentic display/input identities, lifecycle and orientation"},
+    {"id": "audio_muted", "requires": ["peripherals"], "basis": "requirement", "source": "M3 B1/B2/B6; M4 I1/I2: calibration, route, mute and gain prerequisites; output remains muted"},
+    {"id": "protection", "requires": ["peripherals", "early_protection"], "basis": "requirement", "source": "M3 B3/B4/B5; M9-S4: established charging/thermal policy and live protection; enabled source options insufficient"},
+    {"id": "watchdog", "requires": ["protection", "bootstrap"], "basis": "requirement", "source": "M9-S4: selected watchdog owner, health and timing; supervision begins in bootstrap where required"},
+    {"id": "rockbox", "requires": ["display_input", "audio_muted", "watchdog"], "basis": "requirement", "source": "M6 application evidence; M5 linux_safety: interface startup does not authorize unmute or Sony deployment"}
+  ]
+}

@@ -1,0 +1,113 @@
+SPDX-License-Identifier: GPL-2.0-or-later
+Apply after rockbox-opus-correctness.patch; see docs/m4-playback-validation.md.
+
+--- a/lib/rbcodec/codecs/opus.c
++++ b/lib/rbcodec/codecs/opus.c
+@@ -372,10 +372,10 @@
+     unsigned long strtoffset;
+     int64_t skip = 0;
+     int64_t decoded_samples = 0;
++    int64_t granule_origin = 0;
+     bool have_audio_page = false;
+     bool restart_seek = false;
+     int64_t seek_target;
+-    uint64_t granule_pos;
+ 
+     ogg_malloc_init();
+ 
+@@ -421,6 +421,7 @@
+                 seek_target = (48LL * param) + header->preskip;
+                 skip = seek_target;
+                 decoded_samples = 0;
++                granule_origin = 0;
+                 have_audio_page = false;
+                 restart_seek = true;
+                 opus_seek_page_granule(0, page_granule, oy, os);
+@@ -459,7 +460,6 @@
+                 goto done;
+ 
+             page_granule = ogg_page_granulepos(&og);
+-            granule_pos = page_granule;
+ 
+             if (ogg_page_eos(&og) && have_audio_page &&
+                 page_granule < decoded_samples)
+@@ -500,8 +500,11 @@
+                     ci->configure(DSP_SET_STEREO_MODE, (header->channels == 2) ?
+                         STEREO_INTERLEAVED : STEREO_MONO);
+ 
+-                    if (strtoffset)
+-                        goto done; /* Byte-only resume lacks a sample timestamp. */
++                    if (strtoffset && !param)
++                        goto done; /* Offset-only resume lacks a sample timestamp. */
++                    strtoffset = 0;
++                    /* Elapsed time is authoritative: decode/discard from zero
++                     * rather than guessing the timestamp of a byte offset. */
+                     if (param) {
+                         action = CODEC_ACTION_SEEK_TIME;
+                         goto process_action;
+@@ -518,7 +521,8 @@
+                         goto process_action;
+                     /* report progress */
+                     ci->set_offset((size_t) ci->curpos);
+-                    ci->set_elapsed((granule_pos - header->preskip) / 48);
++                    ci->set_elapsed(MAX(0, decoded_samples - granule_origin -
++                                            header->preskip) / 48);
+ 
+                     /* Decode audio packets */
+                     ret = opus_decode(st, op.packet, op.bytes, output,
+@@ -554,6 +558,8 @@
+                         if (!have_audio_page && page_granule < decoded_samples)
+                             goto done;
+                         /* A first audio page can start at a nonzero granule. */
++                        if (!have_audio_page)
++                            granule_origin = page_granule - decoded_samples;
+                         decoded_samples = page_granule;
+                         have_audio_page = true;
+                     }
+--- a/lib/rbcodec/metadata/ogg.c
++++ b/lib/rbcodec/metadata/ogg.c
+@@ -112,6 +112,7 @@
+     int segments;
+     int i;
+     bool eof = false;
++    unsigned opus_preskip = 0;
+ 
+     id3->codectype = get_ogg_format_and_move_to_comments(fd, buf);
+     switch (id3->codectype)
+@@ -126,6 +127,7 @@
+             break;
+         case AFMT_OPUS:
+             id3->frequency = 48000;
++            opus_preskip = buf[38] | ((unsigned)buf[39] << 8);
+             id3->vbr = true;
+             // FIXME handle an actual channel mapping table
+             break;
+@@ -224,7 +226,16 @@
+         return false;
+     }
+ 
++    if (id3->codectype == AFMT_OPUS)
++    {
++        if (id3->samples < opus_preskip)
++            return false;
++        id3->samples -= opus_preskip;
++    }
+     id3->length = ((int64_t) id3->samples * 1000) / id3->frequency;
++    /* Nonempty sub-millisecond Opus remains playable. */
++    if (id3->codectype == AFMT_OPUS && id3->samples && !id3->length)
++        id3->length = 1;
+     if (id3->length <= 0)
+     {
+         logf("ogg length invalid!");
+--- a/firmware/export/config/sdlapp.h
++++ b/firmware/export/config/sdlapp.h
+@@ -73,6 +73,9 @@
+ #define HAVE_SDL
+ #define HAVE_SDL_AUDIO
+ 
++/* SDL can request either standard music rate without forced resampling. */
++#define HW_SAMPR_CAPS (SAMPR_CAP_44 | SAMPR_CAP_48)
++
+ #define HAVE_SW_TONE_CONTROLS 
+ 
+ /* Define this to the CPU frequency */

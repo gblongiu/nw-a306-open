@@ -1,0 +1,73 @@
+SPDX-License-Identifier: GPL-2.0-or-later
+Apply after rockbox-playback-integration.patch to Rockbox
+afe91f1dfb1c9d90da928bb2bf8a0fbc6957ff09; see docs/m5-playback-reliability.md.
+Upstream copyright and license notices are retained in the patched files.
+Attribution and license text: docs/licensing.md and COPYING.
+
+--- a/apps/playback.h
++++ b/apps/playback.h
+@@ -71,6 +71,11 @@
+ 
+ #endif /* HAVE_ALBUMART */
+ 
++#ifdef SDLAPP
++/* Last decoder failure, consumed by the hosted UI thread; zero means none. */
++int audio_take_decoder_error(void);
++#endif
++
+ /* Functions */
+ unsigned int audio_track_count(void);
+ long audio_filebufused(void);
+--- a/apps/playback.c
++++ b/apps/playback.c
+@@ -2913,6 +2913,15 @@
+     return true;
+ }
+ 
++#ifdef SDLAPP
++/* Atomic handoff: audio thread never draws or blocks on the UI. */
++static int hosted_decoder_error;
++int audio_take_decoder_error(void)
++{
++    return __atomic_exchange_n(&hosted_decoder_error, 0, __ATOMIC_ACQ_REL);
++}
++#endif
++
+ /* Codec has completed decoding the track
+    (usually Q_AUDIO_CODEC_COMPLETE) */
+ static void audio_on_codec_complete(int status)
+@@ -3816,6 +3825,10 @@
+ /* Codec has finished running */
+ void audio_codec_complete(int status)
+ {
++#ifdef SDLAPP
++    if (status < 0)
++        __atomic_store_n(&hosted_decoder_error, status, __ATOMIC_RELEASE);
++#endif
+ #ifdef AB_REPEAT_ENABLE
+     if (status >= CODEC_OK)
+     {
+--- a/apps/action.c
++++ b/apps/action.c
+@@ -37,6 +37,9 @@
+ #include "core_alloc.h"
+ 
+ #include "splash.h"
++#if defined(SDLAPP) && CONFIG_CODEC == SWCODEC
++#include "playback.h"
++#endif
+ #include "settings.h"
+ #include "misc.h"
+ 
+@@ -1266,6 +1269,11 @@
+ 
+ int get_action(int context, int timeout)
+ {
++#if defined(SDLAPP) && CONFIG_CODEC == SWCODEC
++    int decoder_error = audio_take_decoder_error();
++    if (decoder_error < 0)
++        splashf(HZ, "Decoder failed (%d). Check this file.", decoder_error);
++#endif
+     action_cur_t current;
+     init_act_cur(&current, context, timeout, NULL);
+ 

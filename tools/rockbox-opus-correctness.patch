@@ -1,0 +1,263 @@
+SPDX-License-Identifier: GPL-2.0-or-later
+Against Rockbox afe91f1dfb1c9d90da928bb2bf8a0fbc6957ff09; see docs/m3-codec-validation.md.
+
+--- a/lib/rbcodec/codecs/opus.c
++++ b/lib/rbcodec/codecs/opus.c
+@@ -370,7 +370,10 @@
+     OpusHeader *header;
+     int ret;
+     unsigned long strtoffset;
+-    int skip = 0;
++    int64_t skip = 0;
++    int64_t decoded_samples = 0;
++    bool have_audio_page = false;
++    bool restart_seek = false;
+     int64_t seek_target;
+     uint64_t granule_pos;
+ 
+@@ -410,14 +413,17 @@
+     process_action:
+         if (action == CODEC_ACTION_SEEK_TIME) {
+             if (st != NULL) {
+-                /* calculate granule to seek to (including seek rewind) */
++                /* Decode from the start: exact pre-skip and seek trimming.
++                 * This is slower than page seeking, but does not guess the
++                 * timestamp of a packet on the selected page. */
++                if (param < 0 || param > (INT64_MAX - 65535) / 48)
++                    goto done;
+                 seek_target = (48LL * param) + header->preskip;
+-                skip = MIN(seek_target, SEEK_REWIND);
+-                seek_target -= skip;
+-
+-                LOGF("Opus seek page:%lld,%lld,%ld\n", (long long int)seek_target,
+-                     (long long int)page_granule, (long)param);
+-                opus_seek_page_granule(seek_target, page_granule, oy, os);
++                skip = seek_target;
++                decoded_samples = 0;
++                have_audio_page = false;
++                restart_seek = true;
++                opus_seek_page_granule(0, page_granule, oy, os);
+                 /* reset the state to help ensure that subsequent packets won't
+                    use state set by unrelated packets processed before seek */
+                 opus_decoder_ctl(st, OPUS_RESET_STATE);
+@@ -426,6 +432,7 @@
+             ci->set_elapsed(param);
+             ci->seek_complete();
+             param = 0;
++            goto next_page;
+         } else  if (action == CODEC_ACTION_HALT)
+             break;
+ 
+@@ -436,7 +443,9 @@
+         }
+ 
+         /* Loop for all complete pages we got (most likely only one) */
+-        while (ogg_sync_pageout(oy, &og) == 1) {
++        while ((ret = ogg_sync_pageout(oy, &og)) != 0) {
++            if (ret < 0)
++                goto done; /* Lost/corrupt page, not a clean EOF. */
+             if (stream_init != 0) {
+                 stream_init = ogg_stream_init(os, ogg_page_serialno(&og));
+                 if (stream_init != 0) {
+@@ -446,12 +455,19 @@
+             }
+ 
+             /* Add page to the bitstream */
+-            ogg_stream_pagein(os, &og);
++            if (ogg_stream_pagein(os, &og) != 0)
++                goto done;
+ 
+             page_granule = ogg_page_granulepos(&og);
+             granule_pos = page_granule;
+ 
+-            while ((ogg_stream_packetout(os, &op) == 1) && !op.e_o_s) {
++            if (ogg_page_eos(&og) && have_audio_page &&
++                page_granule < decoded_samples)
++                goto done;
++
++            while ((ret = ogg_stream_packetout(os, &op)) != 0) {
++                if (ret < 0)
++                    goto done; /* Missing packet. */
+                 if (op.packetno == 0){
+                     /* identification header */
+ 
+@@ -459,9 +475,16 @@
+                         LOGF("Could not parse header");
+                         goto done;
+                     }
+-                    skip = header->preskip;
+-
+-                    st = opus_decoder_create(sample_rate, header->channels, &ret);
++                    if (header->channels < 1 || header->channels > 2)
++                        goto done;
++                    if (!restart_seek)
++                        skip = header->preskip;
++                    restart_seek = false;
++
++                    if (st == NULL)
++                        st = opus_decoder_create(sample_rate, header->channels, &ret);
++                    else
++                        ret = OPUS_OK; /* Existing decoder was reset for seek. */
+                     if (ret != OPUS_OK) {
+                         LOGF("opus_decoder_create failed %d", ret);
+                         goto done;
+@@ -478,48 +501,61 @@
+                         STEREO_INTERLEAVED : STEREO_MONO);
+ 
+                     if (strtoffset)
+-                        seek_ogg_page(strtoffset);
+-                    else if (param) {
++                        goto done; /* Byte-only resume lacks a sample timestamp. */
++                    if (param) {
+                         action = CODEC_ACTION_SEEK_TIME;
+                         goto process_action;
+-                    } else {
+-                    /* seek buffer directly to the first audio packet to avoid
+-                       allocating space for huge comment packets
+-                       (embedded Album Art) */
+-                        if (seek_opus_tags())
+-                            seek_ogg_page(ci->curpos);
+-                        else {
+-                            LOGF("Could not find comment header");
+-                            goto done;
+-                        }
+-                    }
+-                    LOGF("sync reset");
+-                    ogg_sync_reset(oy); /* next page */
+-                    break;
++                    }
++                } else if (op.packetno == 1) {
++                    /* Consume the comment packet instead of seeking past it:
++                     * skipping its page creates a false Ogg packet hole. */
++                    if (op.bytes < 16 || memcmp(op.packet, "OpusTags", 8))
++                        goto done;
+                 } else {
++                    /* Do not postpone commands until after all buffered pages. */
++                    action = ci->get_command(&param);
++                    if (action != CODEC_ACTION_NULL)
++                        goto process_action;
+                     /* report progress */
+                     ci->set_offset((size_t) ci->curpos);
+                     ci->set_elapsed((granule_pos - header->preskip) / 48);
+ 
+                     /* Decode audio packets */
+-                    ret = opus_decode(st, op.packet, op.bytes, output, MAX_FRAME_SIZE, 0);
+-
+-                    if (ret > skip) {
+-                        /* part of or entire output buffer is played */
+-                        ret -= skip;
+-                        ci->pcmbuf_insert(&output[skip * header->channels], NULL, ret);
+-                        skip = 0;
+-                    } else {
+-                        if (ret < 0) {
+-                            LOGF("opus_decode failed %d", ret);
++                    ret = opus_decode(st, op.packet, op.bytes, output,
++                                      MAX_FRAME_SIZE / header->channels, 0);
++                    if (ret <= 0)
++                        goto done;
++
++                    int keep = ret;
++                    if (ogg_page_eos(&og)) {
++                        if (page_granule < header->preskip)
+                             goto done;
+-                        } else if (ret == 0)
+-                            break;
+-                        else {
+-                            /* entire output buffer is skipped */
+-                            skip -= ret;
+-                            ret = 0;
+-                        }
++                        /* End trimming is independent of pre-skip. Keep only
++                         * samples before the final page's granule endpoint. */
++                        keep = MAX(0, MIN((int64_t)ret,
++                                         page_granule - decoded_samples));
++                    }
++                    decoded_samples += ret;
++                    if (keep > skip)
++                        ci->pcmbuf_insert(&output[skip * header->channels],
++                                          NULL, keep - skip);
++                    skip -= MIN(skip, (int64_t)ret);
++
++                    if (op.e_o_s) {
++                        if (page_granule < 0 ||
++                            (have_audio_page && page_granule > decoded_samples))
++                            goto done;
++                        error = CODEC_OK;
++                        goto done;
++                    }
++                    if (op.granulepos >= 0) {
++                        if (have_audio_page && page_granule != decoded_samples)
++                            goto done;
++                        if (!have_audio_page && page_granule < decoded_samples)
++                            goto done;
++                        /* A first audio page can start at a nonzero granule. */
++                        decoded_samples = page_granule;
++                        have_audio_page = true;
+                     }
+                 }
+             }
+--- a/lib/rbcodec/test/warble.c
++++ b/lib/rbcodec/test/warble.c
+@@ -237,7 +237,7 @@
+         uint64_t buf[count];
+ 
+         for (i = 0; i < count; i++)
+-            buf[i] = htole64(make_float64(pcm[i], format.depth));
++            buf[i] = htole64(make_float64(pcm[i], format.depth > 16 ? format.depth : 15));
+         write(output_fd, buf, count * sizeof(*buf));
+     }
+ }
+@@ -816,7 +816,7 @@
+     if (id3->mb_track_id) fprintf(f, "Musicbrainz track ID: %s\n", id3->mb_track_id);
+ }
+ 
+-static void decode_file(const char *input_fn)
++static int decode_file(const char *input_fn)
+ {
+     /* Initialize DSP before any sort of interaction */
+     dsp_init();
+@@ -887,8 +887,10 @@
+         fprintf(stderr, "error: codec returned error from codec_main\n");
+         exit(1);
+     }
++    int status = 0;
+     if (c_hdr->run_proc() != CODEC_OK) {
+         fprintf(stderr, "error: codec error\n");
++        status = 1;
+     }
+     c_hdr->entry_point(CODEC_UNLOAD);
+ 
+@@ -896,6 +898,7 @@
+     dlclose(dlcodec);
+     if (input_fd != STDIN_FILENO)
+         close(input_fd);
++    return status;
+ }
+ 
+ static void print_help(const char *progname)
+@@ -971,12 +974,12 @@
+         exit(1);
+     }
+ 
+-    decode_file(argv[optind]);
++    int status = decode_file(argv[optind]);
+ 
+     if (mode == MODE_WRITE)
+         write_quit();
+     else if (mode == MODE_PLAY)
+         playback_quit();
+ 
+-    return 0;
+-}
++    return status;
++}
+--- a/lib/rbcodec/test/warble.make
++++ b/lib/rbcodec/test/warble.make
+@@ -29,6 +29,6 @@
+ 
+ $(BUILDDIR)/$(BINARY): $$(OBJ) $$(CORE_LIBS)
+ 	@echo LD $(BINARY)
+-	$(SILENT)$(HOSTCC) $(LDOPTS) -o $@ $(OBJ) \
++	$(SILENT)$(CC) $(LDOPTS) -o $@ $(OBJ) \
+ 		-L$(BUILDDIR)/lib $(call a2lnk, $(CORE_LIBS)) \
+ 		$(LDOPTS) $(GLOBAL_LDOPTS)

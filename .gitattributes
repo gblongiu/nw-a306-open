@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+* text=auto eol=lf
+*.md text
+*.py text
+*.c text
+*.json text
+*.patch text
+# Unified patches contain blank context lines and space-prefixed Makefile tabs.
+tools/*.patch whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab

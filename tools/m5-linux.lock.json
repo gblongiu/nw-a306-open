@@ -1,0 +1,142 @@
+[
+  {
+    "file": "qemu-system-arm_8.2.2+ds-0ubuntu1.18_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/q/qemu/qemu-system-arm_8.2.2+ds-0ubuntu1.18_amd64.deb",
+    "bytes": 10963018,
+    "sha256": "06184a21b9c8dc573ab6d255e9826cc4732df90e56bd65c52e92ad640af4d60a",
+    "publisher_digest": true
+  },
+  {
+    "file": "qemu-system-common_8.2.2+ds-0ubuntu1.18_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/q/qemu/qemu-system-common_8.2.2+ds-0ubuntu1.18_amd64.deb",
+    "bytes": 1255316,
+    "sha256": "0a0b744f31e87d72dd0465436b8dfbb1ef9f574ecd0d5a2e9dd8c5cb7d0fef1f",
+    "publisher_digest": true
+  },
+  {
+    "file": "qemu-system-data_8.2.2+ds-0ubuntu1.18_all.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/q/qemu/qemu-system-data_8.2.2+ds-0ubuntu1.18_all.deb",
+    "bytes": 1796342,
+    "sha256": "a14b88d864859bd61c8a3274971da4ecb7da6cec15be6c265d0d411f783d5f2e",
+    "publisher_digest": true
+  },
+  {
+    "file": "libnl-3-200_3.7.0-0.3build1.1_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/libn/libnl3/libnl-3-200_3.7.0-0.3build1.1_amd64.deb",
+    "bytes": 55706,
+    "sha256": "15b3f61db753dc3db6f62f4259f8b822299343e500886776486612a13a2ed247",
+    "publisher_digest": true
+  },
+  {
+    "file": "libnl-route-3-200_3.7.0-0.3build1.1_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/libn/libnl3/libnl-route-3-200_3.7.0-0.3build1.1_amd64.deb",
+    "bytes": 189094,
+    "sha256": "c9dbd29cb7fdcf1a0587726cbc5432a7d3e81242108dfcfa2dd6716c44c74d4d",
+    "publisher_digest": true
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/aarch64/alpine-minirootfs-3.21.8-aarch64.tar.gz",
+    "file": "alpine-minirootfs-3.21.8-aarch64.tar.gz",
+    "bytes": 3831912,
+    "sha256": "f25a96d2846a4bc439093107c1b48a8b0c93dcb411e2cb9cfded6f790b2bc001",
+    "publisher_digest": true
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/aarch64/netboot-3.21.8/vmlinuz-virt",
+    "file": "vmlinuz-virt",
+    "bytes": 9658880,
+    "sha256": "7c14372180c03e557984b5f8e22754f609d130b50dc250e98b09da08e49658da",
+    "publisher_digest": false
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/aarch64/netboot-3.21.8/modloop-virt",
+    "file": "modloop-virt",
+    "bytes": 16306176,
+    "sha256": "efe0d3c76508e5866d3b6db3f85c488833f6f03ca451e706720e07d519a4ae6e",
+    "publisher_digest": false
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/aarch64/netboot-3.21.8/config-6.12.110-0-virt",
+    "file": "config-6.12.110-0-virt",
+    "bytes": 158607,
+    "sha256": "09a16201494dc97dc4b9f9a280c0bdbdcc6dc55979c5e2b313488f8984b45898",
+    "publisher_digest": false
+  },
+  {
+    "file": "libpmem1_1.13.1-1.1ubuntu2_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/pmdk/libpmem1_1.13.1-1.1ubuntu2_amd64.deb",
+    "bytes": 84760,
+    "sha256": "8f1be1cc834a98f0cf5c0950153f7f939a0c2c92095e98cd7bb40c752c545c1b",
+    "publisher_digest": true
+  },
+  {
+    "file": "libfdt1_1.7.0-2build1_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/d/device-tree-compiler/libfdt1_1.7.0-2build1_amd64.deb",
+    "bytes": 20128,
+    "sha256": "274d20dfab9d6b216b5de85446a93f6ce5b2cd82c847b8dfdc508577f76eb96a",
+    "publisher_digest": true
+  },
+  {
+    "file": "libndctl6_77-2ubuntu2_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/n/ndctl/libndctl6_77-2ubuntu2_amd64.deb",
+    "bytes": 62750,
+    "sha256": "4eab53588a8fa9e3192635e118c2d91bc069cde46a4a3785c77a0bb1ae001d02",
+    "publisher_digest": true
+  },
+  {
+    "file": "libslirp0_4.7.0-1ubuntu3.1_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/libs/libslirp/libslirp0_4.7.0-1ubuntu3.1_amd64.deb",
+    "bytes": 63830,
+    "sha256": "4efa2d1c509de4d10fe965e86a3d864bf542996caf476d9111fd882c73857164",
+    "publisher_digest": true
+  },
+  {
+    "file": "liburing2_2.5-1build1_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/libu/liburing/liburing2_2.5-1build1_amd64.deb",
+    "bytes": 21092,
+    "sha256": "c2aef62accee92a06263c3ad4ef46132c13e409b54296c44792a20491830a7b0",
+    "publisher_digest": true
+  },
+  {
+    "file": "libibverbs1_50.0-2ubuntu0.2_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/r/rdma-core/libibverbs1_50.0-2ubuntu0.2_amd64.deb",
+    "bytes": 67960,
+    "sha256": "8489558105ee1d1c65ae6e0f1bac0e9b15f314a68f106ee9a63c89821242bd8e",
+    "publisher_digest": true
+  },
+  {
+    "file": "libdaxctl1_77-2ubuntu2_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/n/ndctl/libdaxctl1_77-2ubuntu2_amd64.deb",
+    "bytes": 21404,
+    "sha256": "c6629b49c79343fb11ae404aeaa3156f051168da6c6d3d9d8d516acd94705061",
+    "publisher_digest": true
+  },
+  {
+    "file": "libaio1t64_0.3.113-6build1.1_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/liba/libaio/libaio1t64_0.3.113-6build1.1_amd64.deb",
+    "bytes": 7210,
+    "sha256": "433212b33e26d424605c01cec1de33b63f2cc12870987b4cb7b3625baba66a19",
+    "publisher_digest": true
+  },
+  {
+    "file": "libnuma1_2.0.18-1ubuntu0.24.04.1_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/n/numactl/libnuma1_2.0.18-1ubuntu0.24.04.1_amd64.deb",
+    "bytes": 23396,
+    "sha256": "f333b8edf6f0b705c19f2a67008194df66f7aab0fa2350dc98510569a033ff29",
+    "publisher_digest": true
+  },
+  {
+    "file": "librdmacm1t64_50.0-2ubuntu0.2_amd64.deb",
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/r/rdma-core/librdmacm1t64_50.0-2ubuntu0.2_amd64.deb",
+    "bytes": 70698,
+    "sha256": "7b7cc2fa16564bf301751b43d05d16f0846288b080d9a25a92a691d0df33fc68",
+    "publisher_digest": true
+  },
+  {
+    "file": "alsa-lib-1.2.11.tar.bz2",
+    "url": "https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.11.tar.bz2",
+    "bytes": 1107150,
+    "sha256": "9f3f2f69b995f9ad37359072fbc69a3a88bfba081fc83e9be30e14662795bb4d",
+    "publisher_digest": false
+  }
+]

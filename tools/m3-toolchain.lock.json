@@ -1,0 +1,107 @@
+[
+  {
+    "file": "binutils-aarch64-linux-gnu_2.42-4ubuntu2.10_amd64.deb",
+    "package": "binutils-aarch64-linux-gnu",
+    "version": "2.42-4ubuntu2.10",
+    "bytes": 3710688,
+    "sha256": "6bb25a05c50681e240b453f6572d8066f2358dee984d0ff1dbcd08852642adf2"
+  },
+  {
+    "file": "cpp-13-aarch64-linux-gnu_13.3.0-6ubuntu2~24.04.1cross1_amd64.deb",
+    "package": "cpp-13-aarch64-linux-gnu",
+    "version": "13.3.0-6ubuntu2~24.04.1cross1",
+    "bytes": 10752882,
+    "sha256": "6aafe2a7820e497263d871519326dc3e5bcecc0583cc49852c05abda8c1d2e55"
+  },
+  {
+    "file": "gcc-13-aarch64-linux-gnu-base_13.3.0-6ubuntu2~24.04.1cross1_amd64.deb",
+    "package": "gcc-13-aarch64-linux-gnu-base",
+    "version": "13.3.0-6ubuntu2~24.04.1cross1",
+    "bytes": 51896,
+    "sha256": "2246058ef9d122c26c9ae9b2ab6843d2504806e68e45c7842dd30dda15e94723"
+  },
+  {
+    "file": "gcc-13-aarch64-linux-gnu_13.3.0-6ubuntu2~24.04.1cross1_amd64.deb",
+    "package": "gcc-13-aarch64-linux-gnu",
+    "version": "13.3.0-6ubuntu2~24.04.1cross1",
+    "bytes": 21069414,
+    "sha256": "154d549389d13010bc0ef2e89c7870e22c4193afa69335f8e57c5fc891e75578"
+  },
+  {
+    "file": "gcc-13-cross-base_13.3.0-6ubuntu2~24.04.1cross1_all.deb",
+    "package": "gcc-13-cross-base",
+    "version": "13.3.0-6ubuntu2~24.04.1cross1",
+    "bytes": 46536,
+    "sha256": "02676468c2f71d57be2fbd6e6f74462ab419a49db15a1b1f031b2460a2954cd3"
+  },
+  {
+    "file": "libasan8-arm64-cross_14.2.0-4ubuntu2~24.04.1cross1_all.deb",
+    "package": "libasan8-arm64-cross",
+    "version": "14.2.0-4ubuntu2~24.04.1cross1",
+    "bytes": 523626,
+    "sha256": "7e65c44cda6a9c3be17f5042fe1f0e403d9c959797f3d876345a9c66310724d3"
+  },
+  {
+    "file": "libc6-arm64-cross_2.39-0ubuntu8cross1_all.deb",
+    "package": "libc6-arm64-cross",
+    "version": "2.39-0ubuntu8cross1",
+    "bytes": 1197434,
+    "sha256": "76547cb8a4d7f057e23dcade45a17fc0f3d5c2fa0d3ff125bca56f7c4ecd7a07"
+  },
+  {
+    "file": "libc6-dev-arm64-cross_2.39-0ubuntu8cross1_all.deb",
+    "package": "libc6-dev-arm64-cross",
+    "version": "2.39-0ubuntu8cross1",
+    "bytes": 1628660,
+    "sha256": "04c6956de42669a53e620ad04a32475ea0bd4325808c227bf5ba52498f0d3f90"
+  },
+  {
+    "file": "libgcc-13-dev-arm64-cross_13.3.0-6ubuntu2~24.04.1cross1_all.deb",
+    "package": "libgcc-13-dev-arm64-cross",
+    "version": "13.3.0-6ubuntu2~24.04.1cross1",
+    "bytes": 2616044,
+    "sha256": "eda9d79e18170fd46ee0ed62aa391f52bfe8c1a336d53162f2e1c0a675af548f"
+  },
+  {
+    "file": "libgcc-s1-arm64-cross_14.2.0-4ubuntu2~24.04.1cross1_all.deb",
+    "package": "libgcc-s1-arm64-cross",
+    "version": "14.2.0-4ubuntu2~24.04.1cross1",
+    "bytes": 61860,
+    "sha256": "be13b35e1c56c4158817e668f442a363db6f4e13b2ffed1ef6cf91df9961e35d"
+  },
+  {
+    "file": "libstdc++6-arm64-cross_14.2.0-4ubuntu2~24.04.1cross1_all.deb",
+    "package": "libstdc++6-arm64-cross",
+    "version": "14.2.0-4ubuntu2~24.04.1cross1",
+    "bytes": 658562,
+    "sha256": "5b9168ad31befddb46fe1b6af88aa90bec0fc63c0abfb4f9c68c2cfcc2acda95"
+  },
+  {
+    "file": "libubsan1-arm64-cross_14.2.0-4ubuntu2~24.04.1cross1_all.deb",
+    "package": "libubsan1-arm64-cross",
+    "version": "14.2.0-4ubuntu2~24.04.1cross1",
+    "bytes": 218622,
+    "sha256": "1a5b3c11901ba5a65b8cadec57ca1af1b567df5bbe7d88d36b2da774fb939a48"
+  },
+  {
+    "file": "linux-libc-dev-arm64-cross_6.8.0-25.25cross1_all.deb",
+    "package": "linux-libc-dev-arm64-cross",
+    "version": "6.8.0-25.25cross1",
+    "bytes": 1374680,
+    "sha256": "6a5a00b8ba8de66862e05493def87a5cbbb23b949601e45a5e3cbde56505cb6b"
+  },
+  {
+    "file": "qemu-user-static_1%3a8.2.2+ds-0ubuntu1.18_amd64.deb",
+    "package": "qemu-user-static",
+    "version": "1:8.2.2+ds-0ubuntu1.18",
+    "bytes": 14709858,
+    "sha256": "5bb397f66063efa349f6fd5cb3b68cd96f29edd0994e4ba5115cf0859a716bf0"
+  },
+  {
+    "file": "zip_3.0-13ubuntu0.2_amd64.deb",
+    "package": "zip",
+    "version": "3.0-13ubuntu0.2",
+    "bytes": 175652,
+    "sha256": "30b325b542ef8e9a22a5e1e1cfce8c4f4b75db73e339e76bf405b635861f1f76"
+  }
+]
