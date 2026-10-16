@@ -44,10 +44,10 @@
       ['03 / PLAYER', 'Rockbox', 'SDL application + codecs', 'Recorded', false],
       ['04 / INTERFACES', 'Virtual devices', 'ALSA · evdev · DRM/KMS', 'Recorded', false]
     ] },
-    target: { badge: 'PROPOSED SONY PATH / NOT ESTABLISHED', lead: 'The stock-kernel direction is a research candidate, not a verified entry point.', foot: 'Non-Android init support does not establish accepted ramdisk/rootfs selection. Selected DT, firmware, calibration and restoration remain missing.', nodes: [
+    target: { badge: 'PROPOSED SONY PATH / NOT ESTABLISHED', lead: 'The intended Sony system would offer native Rockbox or a general-purpose Linux workspace. Neither has booted on the physical player.', foot: 'KC1 established the installed stock kernel disables legacy kexec. Boot acceptance, authentic DT/firmware and original-board recovery remain unresolved.', nodes: [
       ['01 / ENTRY', 'Accepted startup', 'An applicable Sony execution path', 'Unresolved', true],
       ['02 / KERNEL', 'Selected kernel + DT', 'Authentic image and board configuration', 'Unresolved', true],
-      ['03 / PLAYER', 'Minimal userspace', 'Protection + firmware + Rockbox', 'Contract tested; target unverified', true],
+      ['03 / USERSPACE', 'Linux + applications', 'Rockbox or a general-purpose ARM64 workspace', 'Target unverified', true],
       ['04 / INTERFACES', 'Physical hardware', 'Panel · input · storage · audio', 'Unvalidated', true]
     ] }
   };
@@ -271,7 +271,7 @@
     button.setAttribute('aria-pressed', String(state));
     button.firstChild.textContent = state ? 'Reassemble ' : 'Separate layers ';
     $('#heroObject').classList.toggle('exploded', state);
-    $('#objectCaption').textContent = state ? 'Concept layers. Not a Sony assembly drawing.' : 'Interface concept. Not a running Sony device.';
+    $('#objectCaption').textContent = state ? 'Concept layers. Not a Sony assembly drawing.' : 'Mode previews are concept art. Neither runs on Sony.';
     announce(state ? 'Concept layers separated. This is not a Sony assembly drawing.' : 'Concept reassembled.');
   });
 
@@ -281,11 +281,11 @@
     { id: 'codecs', category: 'virtual', label: 'Test scope and limitations', title: 'Regression and reproducibility', text: '38 codec checks and 42 repeated-build output hashes are recorded in the pinned environments. Native ASan had leak detection disabled; ARM64 sanitizer limitations remain unresolved.', links: [['M3 · Codec validation', 'm3-codec-validation.md'], ['M6 · Rebuilds and limitations', 'm6-linux-display-integration.md']] },
     { id: 'hardware', category: 'sample', label: 'Certification sample only', title: 'Photographed component markings', text: 'SODAGREEN M/B revision 1.03, QCS2290, PM4125 and Samsung KLMBG2JETD are reported from FCC photographs. The owner’s board revision and exact selected configuration are not thereby established.', links: [['M7 · FCC photographic evidence', 'm7-fcc-evidence.md'], ['M7 · Hardware convergence', 'm7-hardware-convergence.md']] },
     { id: 'provenance', category: 'sample', label: 'Artifact provenance', title: '43 PDFs. Corrected classifications.', text: '594 pages passed structural traversal. All 31 available catalog SHA-256 values match, including 29 documents with two-byte size discrepancies. Twelve documents lack published hashes. A catalog match is not independent publisher authentication.', links: [['M7 · Inventory and provenance audit', 'm7-fcc-evidence.md']] },
-    { id: 'architecture', category: 'unknown', label: 'Proposed target architecture', title: 'A kernel is not an entry point', text: 'Stock-kernel support for non-Android init does not prove accepted selection of an alternate ramdisk or root filesystem. No selected Sony boot/DT/AVB bundle has been obtained.', links: [['M9 · Authentication boundaries', 'm9-authentication-boundaries.md'], ['M9 · Boot-artifact inventory', 'm9-boot-artifact-inventory.md']] },
+    { id: 'architecture', category: 'unknown', label: 'Proposed target architecture', title: 'A kernel is not an entry point', text: 'KC1 verified the running NW-A306 kernel disables ordinary kexec. Actual Sony boot acceptance, selected boot/DT/AVB artifacts and general-purpose Linux on the physical unit remain unresolved.', links: [['M10 · Running kernel result', 'm10-kc1-results.md'], ['M9 · Authentication boundaries', 'm9-authentication-boundaries.md']] },
     { id: 'userspace', category: 'unknown', label: 'Contract tested; hardware unverified', title: 'Initialization needs an owner', text: 'The 13-role minimum-userspace model tests ordering and failure propagation. Explicit module readiness, firmware delivery, device nodes, deferred probes and safety initialization still require the selected system’s configuration.', links: [['M9 · Stock-kernel userspace', 'm9-stock-kernel-userspace.md']] },
     { id: 'storage', category: 'sample', label: 'Platform versus configuration', title: 'eMMC regions are not Android slots', text: 'The storage model distinguishes the user area, hardware boot regions and RPMB from GPT entries and Android A/B slots. Component capabilities do not establish Sony’s actual region use or provisioning.', links: [['M8 · Boot and storage architecture', 'm8-boot-storage-architecture.md']] },
     { id: 'recovery', category: 'unknown', label: 'Requirements, not a restore procedure', title: 'Original-board recovery', text: 'Six failure states remain without a demonstrated applicable restoration path. Factory reset, routine update, service reinstall and board replacement have different survival requirements.', links: [['M9 · Recovery readiness', 'm9-recovery-readiness.md'], ['M8 · Recovery assessment', 'm8-recovery-assessment.md']] },
-    { id: 'roadmap', category: 'unknown', label: 'Next work, not completed behavior', title: 'The physical integration gap', text: 'Independent acquisition and a bounded characterization workflow are planned. The normal ADB shell cannot be assumed to read the raw FDT; a live tree is not necessarily the stored DTB/DTBO.', links: [['M9 · Userspace and FDT findings', 'm9-stock-kernel-userspace.md'], ['Project roadmap', 'roadmap.md']] }
+    { id: 'roadmap', category: 'unknown', label: 'Next work, not completed behavior', title: 'The physical integration gap', text: 'M10 has completed guarded ADB, fastboot, partition-name and kernel-configuration observations. The standalone SK1 OTA-material hypothesis has not been executed, and original ABL images remain unacquired.', links: [['M10 · Firmware acquisition', 'm10-firmware-acquisition.md'], ['Project roadmap', 'roadmap.md']] }
   ];
   const drawer = $('#evidenceDrawer');
   const evidenceButton = $('#evidenceToggle');

@@ -1,15 +1,13 @@
 # NW-A306 Open
 
-Research and host tooling for a standalone Rockbox environment on the Sony
-NW-A306 (`icx1301`). The goal is to power on into Rockbox, play local music,
-and support the player's controls, display, storage and power management
-without Android or Google services.
+**One device. Two futures.** NW-A306 Open is an independent, open-source effort to put owner-controlled Linux on the Sony NW-A306 (`icx1301`). The shared foundation is a standalone ARM64 Linux system, with two envisioned experiences:
 
-**Rockbox runs in a generic ARM64 Linux guest with tested playback, Linux
-input and DRM/KMS output. It has not booted on the physical NW-A306.**
-There is no Walkman installer, supported custom-boot procedure or verified
-original-board recovery path. Sony boot acceptance, selected board resources
-and safe hardware integration remain unresolved.
+- **Rockbox in your pocket.** A dedicated, local-first digital audio player with physical controls, music-library navigation and no Android dependency.
+- **Linux in your pocket.** A compact, general-purpose ARM64 handheld for compatible applications, terminal tools and experiments beyond music.
+
+[Explore the interactive proposal](https://gblongiu.github.io/nw-a306-open/) · [Research roadmap](docs/roadmap.md)
+
+**Current status:** Rockbox runs in a generic Android-free ARM64 Linux guest with tested audio, input and DRM/KMS output. Neither proposed experience has booted independently on the physical NW-A306. There is no Walkman installer, verified custom-boot procedure or demonstrated original-board restoration path. Sony boot acceptance, genuine board resources and safe hardware bring-up remain unresolved.
 
 ## Implementation
 

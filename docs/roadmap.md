@@ -1,9 +1,12 @@
 # Research roadmap
 
-Research through M9 is complete. M10 planning is complete; engineering
-implementation has not begun. The working system is a generic ARM64 Linux
-prototype. Custom NW-A306 execution, hardware compatibility and original-board
-restoration remain unverified.
+Research through M9 is complete. M10 engineering and guarded characterization
+are in progress. KC1 confirms that the running stock kernel disables ordinary
+legacy kexec; that immediate execution route is closed for the observed build.
+The working system remains a generic ARM64 Linux prototype. Custom NW-A306
+execution, hardware compatibility and original-board restoration remain
+unverified. The target is independent Linux supporting native Rockbox and a
+general-purpose handheld environment.
 
 The milestone reports below retain dated findings, source locators, negative
 results and test evidence. Future acceptance criteria describe requirements,
@@ -147,12 +150,13 @@ init coverage, modules and peripheral trust. The
 entry, accepted reconstruction artifacts and unique-state continuity. No
 alternate init/root or original-board restoration is verified.
 
-## Proposed M10 - Independent artifact acquisition
+## M10 - Artifact acquisition and execution acceptance (in progress)
 
-The immediate priority is authentic selected artifacts: an applicable updater
-consumer explaining NWWM, a provenance-bound boot/DT/AVB bundle, or running-board
-resource descriptions acquired under a separately reviewed characterization
-plan. Manufacturer cooperation is an optional evidence route, not a dependency.
+The immediate priority is authentic firmware acquisition as a distinct objective:
+original ABL/XBL/boot/DT/AVB bytes and actual layout, or firmware-processing code
+that can establish a concrete acquisition capability. Acquisition, independent
+execution and same-board restoration require separate evidence. Manufacturer
+cooperation and additional hardware are not prerequisites for continued research.
 The [M9 decision report](m9-next-decision.md) retains the historical service
 questions and acquisition limits.
 
@@ -160,8 +164,48 @@ Host analysis should establish a new validated container/resource fact or a
 precise access boundary that determines the next bounded acquisition. Validate
 image bounds, build/region provenance, DT selection, authenticated coverage and
 recovery dependencies before implementing target adapters. A synthetic all-ready
-profile cannot substitute for an acquired artifact. No collector or M10 parser
-has been implemented.
+profile cannot substitute for an acquired artifact.
+
+The [first M10 host increment](m10-physical-boot-investigation.md) establishes
+the shared Sony source's live-tree versus raw-FDT access boundary and implements
+a fixed characterization plan with offline replay/provenance tests. It has no
+live transport and establishes no device access. Boot-path ranking, recovery
+survival dependencies and the next separately authorized read-only request are
+recorded there. M10 remains incomplete; selected images, accepted execution
+and same-board restoration remain unresolved.
+
+Subsequent physical [N2](m10-n2-results.md) establishes reported bootloader
+fastboot and intact-stock return; [P1](m10-p1-execution.md) records successful
+bounded partition-name/permission characterization. Neither establishes image
+acceptance or a usable partition reader. [KC1](m10-kc1-results.md) successfully
+captured the running configuration: `# CONFIG_KEXEC is not set` at decoded line
+391. Additional Android privileges alone cannot provide an omitted kernel
+facility. Do not repeat that investigation without materially new evidence.
+The preserved minimal ARM64 initramfs and analysis tools remain available
+for later bring-up; their QEMU result is not Sony execution or cold boot.
+
+The [execution pivot](m10-execution-pivot.md) acquires the original public A306
+EDL images and tests a pinned host client's diagnostic behavior offline. The
+images support reported download-mode enumeration, but contain no programmer
+transaction or authentication rejection. Sony temporary-boot registration,
+locked-state policy and pre-authentication writes remain unknown. Prioritize
+original Sony acceptance evidence or a demonstrably applicable reader over
+further generic loader comparisons. A complete ABL dump is one evidence route,
+not a universal requirement. Independent execution, independent cold boot and
+same-board restoration remain separate, open milestones. The
+[checkpoint inventory](m10-source-control-checkpoint.md) includes KC1 and the
+current review boundary; no further device operation is authorized.
+
+The [firmware acquisition increment](m10-firmware-acquisition.md) tests a standalone
+client for the actual Sony OTA-material API, independently of installation. Host
+ABI/client checks pass; real shell admission and usable provisioning remain
+unverified. The [SK1 proposal](m10-sony-ota-key-proposal.md) defines the specific
+experiment on the existing player, including temporary helper writes and a HIDL
+call with unverified server effects and implicit framework interface validation.
+The canonical wrapper and unapproved offline review package are complete;
+physical execution remains unauthorized. The updater success-path finding is
+recorded and closed; no ABL
+reader, plaintext OTA or new Sony boot image was acquired. No donor is required.
 
 ## Later hardware gates
 

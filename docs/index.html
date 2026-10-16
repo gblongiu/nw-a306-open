@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 
 <!-- SPDX-License-Identifier: GPL-2.0-or-later -->
-<html data-presentation-version="3.0.0" lang="en">
+<html data-presentation-version="4.0.0" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="#141615" name="theme-color"/>
-<meta content="Keep the hardware. Change the system. Independent Linux and Rockbox research for Sony's NW-A306, with a working ARM64 prototype and a documented path toward an open music player." name="description"/>
-<meta content="NW-A306 Open / Keep the player. Open the system." property="og:title"/>
-<meta content="Independent Linux and Rockbox research for the Sony NW-A306. Explore the prototype, hardware evidence and engineering still ahead." property="og:description"/>
+<meta content="One device. Two futures. Linux in your pocket or Rockbox in your pocket. NW-A306 Open is an independent effort to bring owner-controlled Linux to the Sony NW-A306." name="description"/>
+<meta content="NW-A306 Open / One device. Two futures." property="og:title"/>
+<meta content="Linux in your pocket. Rockbox in your pocket. Explore the two experiences, verified ARM64 prototype and the research still needed for a physical Sony port." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="https://gblongiu.github.io/nw-a306-open/assets/images/social-preview.png?v=3.0.0" property="og:image"/>
-<title>NW-A306 Open / Keep the player. Open the system.</title>
+<meta content="https://gblongiu.github.io/nw-a306-open/assets/images/social-preview-v4.png?v=4.0.0" property="og:image"/>
+<title>NW-A306 Open / One device. Two futures.</title>
 <link href="assets/icons/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="favicon.ico" rel="alternate icon"/>
-<link href="assets/css/nw-a306-open.css?v=3.0.0" rel="stylesheet"/>
-<script defer="" src="assets/js/nw-a306-open.js?v=3.0.0"></script>
+<link href="assets/css/nw-a306-open.css?v=4.0.0" rel="stylesheet"/>
+<link href="assets/css/open-futures.css?v=4.0.0" rel="stylesheet"/>
+<script defer="" src="assets/js/nw-a306-open.js?v=4.0.0"></script>
+<script defer="" src="assets/js/open-futures.js?v=4.0.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="header" id="top">
 <a aria-label="NW-A306 Open, back to top" class="wordmark" href="#top"><span aria-hidden="true" class="mark"><i></i><i></i><i></i><i></i></span><span>NW-A306 <b>OPEN</b></span></a>
-<nav aria-label="Chapters" class="nav"><a href="#idea"><small>01</small> Idea</a><a href="#prototype"><small>02</small> Prototype</a><a href="#hardware"><small>03</small> Hardware</a><a href="#recovery"><small>04</small> Recovery</a></nav>
+<nav aria-label="Chapters" class="nav"><a href="#futures"><small>01</small> Futures</a><a href="#prototype"><small>02</small> Proof</a><a href="#hardware"><small>03</small> Hardware</a><a href="#recovery"><small>04</small> Recovery</a></nav>
 <button aria-controls="evidenceDrawer" aria-pressed="false" class="evidence-switch js-only" id="evidenceToggle"><span aria-hidden="true" class="toggle-track"><i></i></span><span id="evidenceToggleLabel">Evidence mode</span></button>
 <button aria-pressed="false" class="motion-button js-only" id="motionToggle">Pause motion</button></header>
 <div aria-hidden="true" class="reading-progress"><i id="readingProgress"></i></div>
 <div class="evidence-ribbon" hidden="" id="evidenceRibbon"><span><i></i> Evidence view active</span><span class="ribbon-detail">Sources and verification limits are now visible.</span><button id="reopenEvidence">Open source index <span aria-hidden="true">↗</span></button></div>
 <main id="main">
-<section aria-labelledby="heroTitle" class="hero"><div aria-hidden="true" class="hero-backdrop"><span class="hero-ghost">OPEN</span></div>
+<section aria-labelledby="heroTitle" class="hero"><div aria-hidden="true" class="hero-backdrop"><span class="hero-ghost">∞</span></div>
 
 <div class="hero-typography">
 <p class="eyebrow"><span class="live-dot"></span> SONY NW-A306 <span class="edition">/ INDEPENDENT RESEARCH</span></p>
-<h1 id="heroTitle">Keep the<br/>player.<span>Open the system.</span></h1>
-<p class="hero-summary">A different future for the hardware you own. <br/>Independent Linux and Rockbox research for a music player without Android.</p>
-<div class="hero-actions"><a class="primary-link" href="#prototype">Explore the prototype <span aria-hidden="true">↘</span></a><a class="quiet-link" href="https://github.com/gblongiu/nw-a306-open">Source code <span aria-hidden="true">↗</span></a></div>
-<p class="hero-status"><span aria-hidden="true" class="status-outline"></span> Functional ARM64 prototype.<br/><span>Physical Walkman integration remains unverified.</span></p>
+<h1 id="heroTitle">One device.<span>Two futures.</span></h1>
+<p class="hero-summary">An open Linux handheld, or a dedicated Rockbox player. Two expressions of one idea: the hardware you own should be yours to define.</p>
+<div class="hero-mode-prompt"><span>CHOOSE THE EXPERIENCE</span>
+<div class="hero-mode-controls js-only" aria-label="Preview experience" role="group"><button type="button" data-future-action="rockbox" aria-pressed="true">Rockbox <span aria-hidden="true">↗</span></button><button type="button" data-future-action="linux" aria-pressed="false">Linux <span aria-hidden="true">↗</span></button></div></div>
+<div class="hero-actions"><a class="primary-link" href="#futures">Explore both futures <span aria-hidden="true">↘</span></a><a class="quiet-link" href="https://github.com/gblongiu/nw-a306-open">Source code <span aria-hidden="true">↗</span></a></div>
+<p class="hero-status"><span aria-hidden="true" class="status-outline"></span> Linux + Rockbox demonstrated in ARM64 QEMU.<br/><span>Physical NW-A306 execution remains unproven.</span></p>
 <button class="source-note" data-source="prototype">01 / Prototype scope and recorded results <span aria-hidden="true">↗</span></button>
 </div>
-<div class="hero-object" id="heroObject"><div aria-hidden="true" class="object-stage"><img alt="" class="signal-sculpture" height="1000" src="assets/images/signal-sculpture.svg" width="1200"/><div class="object-shadow"></div><div class="registration reg-a"></div><div class="registration reg-b"></div></div><div class="study-label"><span>FORM / 001</span><span>AN OPEN PLAYER<br/>CONCEPT STUDY</span></div>
+<div class="hero-object" id="heroObject"><div aria-hidden="true" class="object-stage"><img alt="" class="signal-sculpture" height="1000" src="assets/images/signal-sculpture.svg" width="1200"/><div class="object-shadow"></div><div class="registration reg-a"></div><div class="registration reg-b"></div></div><div class="study-label"><span>OBJECT / 001</span><span>DUAL-EXPERIENCE<br/>CONCEPT STUDY</span></div>
 
 
 <div aria-label="Original concept illustration of an open music player. This is not a photo, an actual Rockbox screen, or a verified Sony hardware layout." class="device-space" id="deviceSpace" role="img">
@@ -48,6 +52,7 @@
 <div class="device-edge"></div><div class="side-controls"><i></i><i></i><i></i><i></i></div>
 <div class="device-topline"><span>OPEN</span><span class="tiny-battery"></span></div>
 <div class="device-screen">
+<div class="linux-screen" aria-hidden="true"><div class="linux-window-bar"><span>nwa306@open</span><span>● ● ●</span></div><div class="linux-mark">GNU / LINUX</div><div class="linux-title">A full system.<br/>In your pocket.</div><div class="linux-rule"></div><div class="linux-terminal"><span>$ uname -m</span><strong>aarch64</strong><span>$ ls /home</span><strong>music  projects</strong><span class="linux-terminal-cursor">$ <i></i></span></div><div class="linux-screen-foot">INTERFACE CONCEPT / NOT A SONY BOOT</div></div>
 <div class="screen-top"><span>LOCAL COLLECTION</span><span>01 / 12</span></div>
 <div class="album-art album-v3"><img alt="" class="album-sculpture" height="1000" src="assets/images/signal-sculpture.svg" width="1200"/><span class="art-type">LOCAL<br/>MATTER.</span><span class="art-edition">SIGNAL STUDY 001</span></div>
 <div class="track-label"><b>Untethered</b><span>Local signals · Side A</span></div>
@@ -59,23 +64,61 @@
 </div>
 </div>
 </div>
-<div class="object-caption"><span id="objectCaption">Interface concept. Not a running Sony device.</span><button aria-pressed="false" class="object-control js-only" id="explodeButton">Separate layers <span aria-hidden="true">↗</span></button></div>
+<div class="object-caption"><span id="objectCaption">Mode previews are concept art. Neither runs on Sony.</span><button aria-pressed="false" class="object-control js-only" id="explodeButton">Separate layers <span aria-hidden="true">↗</span></button></div>
 <span aria-hidden="true" class="object-scale">ENCLOSURE / CIRCUIT / INTERFACE</span></div>
-<div class="hero-baseline"><span>LESS SOFTWARE.<br/><b>MORE OWNERSHIP.</b></span><span class="hero-baseline-right"><i class="baseline-dot"></i> IMPLEMENTED / ARM64 LINUX GUEST</span><span class="hero-baseline-right target-note"><i class="baseline-ring"></i> INTENDED / PHYSICAL NW-A306</span><a aria-label="Continue to the idea" href="#idea">↓</a></div>
+<div class="hero-baseline"><span>ONE MACHINE.<br/><b>YOUR DECISION.</b></span><span class="hero-baseline-right"><i class="baseline-dot"></i> DEMONSTRATED / ARM64 QEMU</span><span class="hero-baseline-right target-note"><i class="baseline-ring"></i> RESEARCH TARGET / PHYSICAL NW-A306</span><a aria-label="Continue to the idea" href="#idea">↓</a></div>
+</section>
+<section aria-labelledby="futuresTitle" class="futures section-pad" data-chapter="01" id="futures">
+  <div class="future-ambient" aria-hidden="true"><div class="future-ambient-grid"></div><span class="future-background-word">POSSIBILITY</span></div>
+  <div class="chapter-label"><span>01 / TWO FUTURES</span><span>ONE OPEN ARM64 FOUNDATION · TWO EXPERIENCES</span></div>
+  <div class="future-intro">
+    <div><p class="future-kicker">THE HARDWARE IS ALREADY HERE.</p><h2 id="futuresTitle">Make it<br/><em>anything.</em></h2></div>
+    <div class="future-intro-side"><span class="future-ordinal">02<span> / ∞</span></span><p>Instead of designing one replacement interface, we are opening a platform. A music-first Rockbox environment or a compact, general-purpose Linux machine. The choice belongs to the owner.</p><span class="future-evidence-qualifier">PRODUCT VISION / NOT YET BOOTING ON PHYSICAL NW-A306</span></div>
+  </div>
+  <div class="future-studio" id="futureStudio">
+    <div class="future-studio-bar"><span class="future-bullet"></span><span>EXPERIENCE LAB</span><span>EXPLORE CONCEPT MODES / 01 / 02</span></div>
+    <div class="future-studio-grid">
+      <div class="future-stage" aria-label="Conceptual preview of the selected future">
+        <div class="future-art" aria-hidden="true"><img src="assets/images/dual-frequency.svg" alt="" width="1100" height="860"/></div>
+        <div class="future-stamp"><span>NW-A306 / OPEN</span><strong>CONCEPT STUDY<br/>NOT RUNNING SONY UI</strong></div>
+        <div class="future-mode-view" data-future-panel="rockbox" role="tabpanel" id="futurePanelRockbox" aria-labelledby="futureTabRockbox">
+          <div class="future-mock-player"><div class="future-player-top"><span>◎ &nbsp; OPEN AUDIO</span><span>LOCAL / 001</span></div><div class="future-player-cover"><img src="assets/images/signal-sculpture.svg" alt="" width="1200" height="1000"/><span>YOUR<br/>MUSIC.</span></div><div class="future-player-meta"><span>Untethered</span><small>Local collection / Concept audio</small></div><div class="future-player-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="future-player-controls"><span>◀◀</span><span class="future-player-play">▶</span><span>▶▶</span></div></div>
+        </div>
+        <div class="future-mode-view" data-future-panel="linux" role="tabpanel" id="futurePanelLinux" aria-labelledby="futureTabLinux" hidden>
+          <div class="future-mock-terminal"><div class="terminal-menubar"><span><i></i><i></i><i></i></span><b>open@nw-a306:~</b><em>ARM64</em></div><div class="terminal-inside"><div class="terminal-brand"><span>LINUX</span><strong>01</strong></div><p class="terminal-comment"># imagine a pocket-sized Linux workspace</p><div class="terminal-line"><span>open@nw-a306</span>:~$ uname -m</div><div class="terminal-output">aarch64</div><div class="terminal-line"><span>open@nw-a306</span>:~$ ls</div><div class="terminal-output">music/ &nbsp; tools/ &nbsp; projects/</div><div class="terminal-line"><span>open@nw-a306</span>:~$ <i class="terminal-cursor"></i></div><div class="terminal-pills"><span>LOCAL SHELL</span><span>ARM64</span><span>OWNER CONTROL</span></div></div></div>
+        </div>
+        <div class="future-art-index"><span>FIELD NOTE / 01</span><span>ONE DEVICE, TWO VISIONS</span></div>
+      </div>
+      <div class="future-interface">
+        <div class="future-interface-heading"><span>SELECT A FUTURE</span><span>↓</span></div>
+        <div class="future-switch" role="tablist" aria-label="Future concept preview">
+          <button type="button" role="tab" id="futureTabRockbox" aria-controls="futurePanelRockbox" aria-selected="true" tabindex="0" data-future-select="rockbox"><span class="future-switch-num">01 / MUSIC</span><strong>Rockbox<span aria-hidden="true">↗</span></strong><small>Music without the operating-system noise.</small></button>
+          <button type="button" role="tab" id="futureTabLinux" aria-controls="futurePanelLinux" aria-selected="false" tabindex="-1" data-future-select="linux"><span class="future-switch-num">02 / COMPUTE</span><strong>Linux<span aria-hidden="true">↗</span></strong><small>A tiny computer that belongs to you.</small></button>
+        </div>
+        <div class="future-selected-detail" aria-live="polite"><span id="futureDetailKind">ROCKBOX / DEDICATED PLAYER</span><h3 id="futureDetailTitle">Pure listening.</h3><p id="futureDetailDescription">A local collection, tactile playback, familiar formats and an interface built around albums instead of accounts.</p><div class="future-detail-tags" id="futureDetailTags"><span>LOCAL AUDIO</span><span>PHYSICAL CONTROLS</span><span>FOCUSED UI</span></div></div>
+        <p class="future-mode-disclaimer">The interface is original concept art. The physical-device boot path and hardware drivers remain unverified.</p>
+      </div>
+    </div>
+  </div>
+  <div class="future-duo">
+    <article class="future-duo-card future-duo-rockbox"><div class="duo-card-top"><span>01 / LISTEN</span><span>♪</span></div><div><span class="duo-card-line">ROCKBOX IN YOUR POCKET</span><h3>All music.<br/><em>No noise.</em></h3><p>A dedicated audio experience with local-first playback, an artwork-forward collection and direct control over your files.</p></div><div class="duo-card-bottom"><span>FLAGSHIP EXPERIENCE</span><span>→</span></div></article>
+    <article class="future-duo-card future-duo-linux"><div class="duo-card-top"><span>02 / EXPLORE</span><span>&gt;_</span></div><div><span class="duo-card-line">LINUX IN YOUR POCKET</span><h3>Small device.<br/><em>Open horizon.</em></h3><p>A general-purpose ARM64 Linux workspace for terminal tools, local applications and experiments beyond music.</p></div><div class="duo-card-bottom"><span>GENERAL-PURPOSE MODE</span><span>→</span></div></article>
+  </div>
+  <div class="future-foundation"><span>SHARED FOUNDATION</span><p>Owner-controlled boot <i></i> Mainline-oriented Linux research <i></i> Hardware drivers <i></i> Reproducible builds <i></i> Recoverability</p><a href="#architecture">See the engineering requirements <span aria-hidden="true">↗</span></a></div>
 </section>
 <section aria-labelledby="ideaTitle" class="idea paper section-pad" data-chapter="01" id="idea">
-<div class="chapter-label"><span>01 / THE IDEA</span><span>LESS BETWEEN YOU AND YOUR MUSIC</span></div>
-<div class="idea-heading"><h2 id="ideaTitle">A dedicated player.<br/><span class="serif">On your terms.</span></h2><p>A dedicated player should start with your library. Not a launcher, an account, or a stack of services that local playback does not need.</p></div>
+<div class="chapter-label"><span>THE PRINCIPLES</span><span>LESS BETWEEN YOU AND WHAT YOU MAKE</span></div>
+<div class="idea-heading"><h2 id="ideaTitle">A personal machine.<br/><span class="serif">On your terms.</span></h2><p>The same hardware can have radically different purposes. Either way, the software should serve its owner, not define the limits of ownership.</p></div>
 <div class="principles">
-<article><span class="principle-number">I.</span><svg aria-hidden="true" class="principle-glyph" viewBox="0 0 56 56"><path d="M12 44V12L40 28Z M48 12V44"></path></svg><h3>Power on.<br/>Press play.</h3><p>The intended system boots into Rockbox directly. Android is not an intermediate step.</p></article>
-<article><span class="principle-number">II.</span><svg aria-hidden="true" class="principle-glyph" viewBox="0 0 56 56"><path d="M8 14H48V46H8Z M14 8H42 M17 30H39 M17 36H31"></path></svg><h3>Your files.<br/>Your collection.</h3><p>Local music and expandable storage. No cloud account or network connection required for core playback.</p></article>
-<article><span class="principle-number">III.</span><svg aria-hidden="true" class="principle-glyph" viewBox="0 0 56 56"><path d="M20 8H8V48H20 M36 8H48V48H36 M18 28H38 M29 19L38 28L29 37"></path></svg><h3>Open to study.<br/>Built to keep.</h3><p>Documented source, reproducible builds and an interface that can evolve beyond the stock software.</p></article>
+<article><span class="principle-number">I.</span><svg aria-hidden="true" class="principle-glyph" viewBox="0 0 56 56"><path d="M12 44V12L40 28Z M48 12V44"></path></svg><h3>Music first.<br/>Always.</h3><p>The dedicated Rockbox experience should start without Android. Direct boot is the goal, not a demonstrated capability.</p></article>
+<article><span class="principle-number">II.</span><svg aria-hidden="true" class="principle-glyph" viewBox="0 0 56 56"><path d="M8 14H48V46H8Z M14 8H42 M17 30H39 M17 36H31"></path></svg><h3>An actual<br/>Linux system.</h3><p>A general-purpose Linux environment, with local programs and a terminal. Its physical hardware support remains a development goal.</p></article>
+<article><span class="principle-number">III.</span><svg aria-hidden="true" class="principle-glyph" viewBox="0 0 56 56"><path d="M20 8H8V48H20 M36 8H48V48H36 M18 28H38 M29 19L38 28L29 37"></path></svg><h3>Open source.<br/>Owner choice.</h3><p>Documented source, reproducible builds, recoverable upgrades and two experiences built on a shared foundation.</p></article>
 </div>
-<p class="section-footnote">These are product goals. Better sound, battery life and startup speed remain goals to measure, not results to claim.</p>
+<p class="section-footnote">These are product directions, not measured physical capabilities. Better audio, boot time, power use and Linux application support must be validated on the actual Sony.</p>
 </section>
 <section aria-labelledby="prototypeTitle" class="prototype section-pad" data-chapter="02" id="prototype">
 <div class="chapter-label"><span>02 / THE PROTOTYPE</span><span class="classified class-virtual">VERIFIED IN A VIRTUAL MACHINE</span></div>
-<div class="section-heading"><h2 id="prototypeTitle">Working code.<br/><span class="serif">Measured results.</span></h2><p>Actual AArch64 Rockbox runs inside an Android-free Linux guest. Playback, input and changing display output have been checked against independent captures.</p></div>
+<div class="section-heading"><h2 id="prototypeTitle">Working code.<br/><span class="serif">Measured results.</span></h2><p>Rockbox already runs in an Android-free ARM64 Linux guest. Audio playback, input and changing display output have been checked there. The general-purpose handheld mode remains a proposed target.</p></div>
 <div class="bench" data-evidence="virtual">
 <div class="bench-toolbar"><span class="micro">PLAYBACK BENCH / RECORDED RESULTS</span><div aria-label="Playback format" class="segmented js-only" role="tablist"><button aria-controls="codecPanel" aria-selected="true" data-codec="wav" id="tab-wav" role="tab">WAV</button><button aria-controls="codecPanel" aria-selected="false" data-codec="flac" id="tab-flac" role="tab" tabindex="-1">FLAC</button><button aria-controls="codecPanel" aria-selected="false" data-codec="opus" id="tab-opus" role="tab" tabindex="-1">OPUS</button></div></div>
 <div aria-labelledby="tab-wav" class="bench-body" id="codecPanel" role="tabpanel" tabindex="0"><div class="bench-readout"><span class="micro" id="codecCategory">REFERENCE COMPARISON</span><strong id="codecResult">Exact<span>PCM</span></strong><p id="codecDescription">Every captured music sample matches the WAV reference.</p><div class="bench-parameters"><div><span>SAMPLE RATE</span><b id="codecRate">44.1 kHz</b></div><div><span>MUSIC FRAMES</span><b id="codecFrames">99,226</b></div></div></div><div aria-describedby="scopeSummary" aria-labelledby="scopeTitle" class="scope codec-study" data-format="wav">
@@ -119,7 +162,7 @@
 </section>
 <section aria-labelledby="architectureTitle" class="architecture section-pad" data-chapter="04" id="architecture">
 <div class="chapter-label"><span>04 / THE SYSTEM</span><span>AN INTERFACE IS NOT A BOOT PATH</span></div>
-<div class="section-heading"><h2 id="architectureTitle">The software runs.<br/><span class="serif">The handoff is next.</span></h2><p>The application runs. Making the Walkman start it independently requires a compatible handoff, explicit initialization ownership and an accepted boot path.</p></div>
+<div class="section-heading"><h2 id="architectureTitle">One open foundation.<br/><span class="serif">Two ways to use it.</span></h2><p>The verified guest demonstrates Linux hosting Rockbox. Running Linux independently on the physical Walkman requires authentic board support, a permissible execution path and a tested restoration strategy.</p></div>
 <div aria-label="Architecture view" class="architecture-selector segmented js-only" role="tablist"><button aria-controls="architecturePanel" aria-selected="true" data-architecture="virtual" id="arch-virtual" role="tab">Implemented <span>ARM64 VM</span></button><button aria-controls="architecturePanel" aria-selected="false" data-architecture="target" id="arch-target" role="tab" tabindex="-1">Intended <span>NW-A306</span></button></div>
 <div aria-labelledby="arch-virtual" class="architecture-panel" data-mode="virtual" id="architecturePanel" role="tabpanel" tabindex="0">
 <div class="architecture-intro"><span class="classified class-virtual" id="architectureBadge">VERIFIED VIRTUAL PATH</span><p id="architectureLead">A minimal Linux guest starts Rockbox without Android userspace.</p></div>
@@ -162,14 +205,15 @@
 </section>
 <section aria-labelledby="pathTitle" class="path paper section-pad" data-chapter="06" id="path">
 <div class="chapter-label"><span>06 / THE PATH FORWARD</span><span>INDEPENDENT RESEARCH. MEASURABLE PROGRESS.</span></div>
-<div class="section-heading"><h2 id="pathTitle">From a working prototype<br/><span class="serif">to a working player.</span></h2><p>The next useful step is better evidence from the actual platform, not another generic demo. Device interaction is a separate, bounded investigation.</p></div>
-<div class="next-steps"><article><span class="step-index">01</span><div class="step-rule"></div><p class="micro">OBSERVE</p><h3>Read the real system.</h3><p>Prepare an allowlisted, logged acquisition workflow. Distinguish readable live-tree properties from raw firmware images and keep device data local.</p><span class="step-status">Acquisition tooling is planned, not implemented</span></article><article><span class="step-index">02</span><div class="step-rule"></div><p class="micro">RESOLVE</p><h3>Establish the contracts.</h3><p>Bind boot, board configuration, module readiness, firmware delivery and protection ownership to authentic selected artifacts.</p><span class="step-status">Published sources are not the selected build</span></article><article><span class="step-index">03</span><div class="step-rule"></div><p class="micro">BRING UP</p><h3>Make it a music player.</h3><p>After execution and recovery are established, integrate real input, display, storage and bounded audio. Then measure stability and battery life.</p><span class="step-status">Physical integration has not started</span></article></div>
-<div class="success-line"><span class="micro">DONE MEANS</span><p>Direct boot. Local playback. Physical controls. Safe charging. <br/>Repeatable builds. Dependable restoration.</p></div>
+<div class="section-heading"><h2 id="pathTitle">From a proven guest<br/><span class="serif">to an open handheld.</span></h2><p>The prototype proves useful software. The next challenges are acquiring authentic Sony boot evidence, establishing independent execution and bringing up the real hardware safely.</p></div>
+<div class="m10-result"><span class="m10-result-bullet"></span><span><b>KC1 / CONFIRMED</b> · Running Sony kernel: <code># CONFIG_KEXEC is not set</code>. Ordinary stock-kernel handoff is closed; independent boot research continues.</span><a href="https://github.com/gblongiu/nw-a306-open/blob/main/docs/m10-kc1-results.md">Evidence ↗</a></div>
+<div class="next-steps"><article><span class="step-index">01</span><div class="step-rule"></div><p class="micro">OBSERVE</p><h3>Acquire the original.</h3><p>Investigate authentic boot images and storage readback. The SK1 OTA-material hypothesis is prepared offline, not demonstrated on the device.</p><span class="step-status">KC1 verified · SK1 physical access untested</span></article><article><span class="step-index">02</span><div class="step-rule"></div><p class="micro">RESOLVE</p><h3>Open the boot path.</h3><p>Establish acceptance of owner-controlled Linux and the board-specific DT, firmware, trust and initialization requirements.</p><span class="step-status">Physical independent execution unproven</span></article><article><span class="step-index">03</span><div class="step-rule"></div><p class="micro">BRING UP</p><h3>Build both experiences.</h3><p>Bring up real display, buttons, storage, audio, networking and power. Deliver Rockbox mode and a useful handheld Linux environment.</p><span class="step-status">Sony hardware integration not validated</span></article></div>
+<div class="success-line"><span class="micro">DONE MEANS</span><p>Independent boot. Rockbox playback. A Linux workspace. Physical controls.<br/>Safe power management. Repeatable builds. Dependable restoration.</p></div>
 <button class="source-note" data-source="roadmap">06 / Current scope and next engineering dependencies <span aria-hidden="true">↗</span></button>
 </section>
-<section aria-labelledby="closingTitle" class="closing section-pad"><div class="closing-head"><p class="eyebrow">SOURCE AVAILABLE / GPL-2.0-OR-LATER</p><span aria-hidden="true" class="closing-mark">↗</span></div><h2 id="closingTitle">A future for<br/><span class="serif">the player you own.</span></h2><div class="closing-bottom"><p>The research, tools and patches are open.<br/>The next chapter is in the hardware.</p><a class="closing-link" href="https://github.com/gblongiu/nw-a306-open">Explore the repository <span aria-hidden="true">↗</span></a></div></section>
+<section aria-labelledby="closingTitle" class="closing section-pad"><div class="closing-head"><p class="eyebrow">SOURCE AVAILABLE / GPL-2.0-OR-LATER</p><span aria-hidden="true" class="closing-mark">↗</span></div><h2 id="closingTitle">Your pocket.<br/><span class="serif">Your operating system.</span></h2><div class="closing-bottom"><p>Rockbox in your pocket. Linux in your pocket.<br/>One open research effort. Two possibilities.</p><a class="closing-link" href="https://github.com/gblongiu/nw-a306-open">Explore the repository <span aria-hidden="true">↗</span></a></div></section>
 </main>
-<footer class="footer"><a class="wordmark" href="#top"><span aria-hidden="true" class="mark"><i></i><i></i><i></i><i></i></span><span>NW-A306 <b>OPEN</b></span></a><p>Independent research. Not affiliated with Sony or the Rockbox project.<br/>Evidence snapshot · 14 October 2026. Artwork and layouts are concept studies.</p><div class="footer-actions"><a href="https://github.com/gblongiu/nw-a306-open/blob/main/docs/licensing.md">License ↗</a><a href="#top">Back to top ↑</a></div></footer>
+<footer class="footer"><a class="wordmark" href="#top"><span aria-hidden="true" class="mark"><i></i><i></i><i></i><i></i></span><span>NW-A306 <b>OPEN</b></span></a><p>Independent research. Not affiliated with Sony or the Rockbox project.<br/>Evidence snapshot · 15 October 2026. Visuals are concept studies, not demonstrated Sony interfaces.</p><div class="footer-actions"><a href="https://github.com/gblongiu/nw-a306-open/blob/main/docs/licensing.md">License ↗</a><a href="#top">Back to top ↑</a></div></footer>
 <div aria-live="polite" class="sr-only" id="liveStatus" role="status"></div>
 <dialog aria-labelledby="evidenceTitle" class="evidence-drawer" id="evidenceDrawer"><div class="drawer-head"><span class="micro">THE SOURCE INDEX</span><button aria-label="Close source index" class="close-drawer" id="closeEvidence">×</button></div><div class="drawer-intro"><span class="eyebrow">EVIDENCE MODE / ACTIVE</span><h2 id="evidenceTitle">Every claim.<br/><span class="serif">A traceable source.</span></h2><p>Closing this panel keeps source notes visible on the page. No illustration is evidence of physical operation.</p></div><div aria-label="Filter source records" class="evidence-filters" role="group"><button aria-pressed="true" data-filter="all">All</button><button aria-pressed="false" data-filter="virtual">Virtual tests</button><button aria-pressed="false" data-filter="sample">Board evidence</button><button aria-pressed="false" data-filter="unknown">Open questions</button></div><div class="evidence-count" id="evidenceCount" role="status">Source records</div><div class="evidence-records" id="evidenceRecords"></div><div class="drawer-bottom"><button id="exitEvidence">Exit evidence mode <span aria-hidden="true">↗</span></button></div></dialog>
 <noscript><div class="no-script-note">Interactive views require JavaScript. The proposal remains readable; the linked technical reports contain the full findings.</div></noscript>
