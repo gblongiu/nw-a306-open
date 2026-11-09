@@ -5,9 +5,9 @@
 - **Rockbox in your pocket.** A dedicated, local-first digital audio player with physical controls, music-library navigation and no Android dependency.
 - **Linux in your pocket.** A compact, general-purpose ARM64 handheld for compatible applications, terminal tools and experiments beyond music.
 
-[Explore the interactive proposal](https://gblongiu.github.io/nw-a306-open/) · [Research roadmap](docs/roadmap.md)
+[Explore the interactive proposal](https://gblongiu.github.io/nw-a306-open/) · [Current research status](docs/current-status.md) · [Research roadmap](docs/roadmap.md)
 
-**Current status:** Rockbox runs in a generic Android-free ARM64 Linux guest with tested audio, input and DRM/KMS output. Neither proposed experience has booted independently on the physical NW-A306. There is no Walkman installer, verified custom-boot procedure or demonstrated original-board restoration path. Sony boot acceptance, genuine board resources and safe hardware bring-up remain unresolved.
+**Current status:** One Android-free ARM64 Linux kernel and initramfs now boot into either Rockbox (default) or a real interactive Linux console. Both profiles are verified in QEMU, including playback, virtual input/display, writable RAM files and orderly shutdown. Neither experience has booted independently on the physical NW-A306. There is no Walkman installer, verified custom-boot procedure or demonstrated original-board restoration path. Sony boot acceptance, genuine board resources and safe hardware bring-up remain unresolved.
 
 ## Implementation
 
@@ -17,6 +17,21 @@ SDL supplies the existing ALSA audio backend. Test adapters connect synthetic
 uinput/evdev events to Rockbox and copy software-rendered frames to virtio DRM
 buffers for KMS page flips. The guest has no Android userspace, network, disk,
 USB or physical-device passthrough.
+
+The [shared dual-experience runtime](docs/dual-experience-runtime.md) adds
+BusyBox PID 1, boot-time profile selection and an interactive serial shell to
+that existing implementation. It includes exact Windows/WSL launch commands,
+the nine-boot acceptance results and artifact hashes. Basic Linux tools and
+the temporary workspace work offline; a graphical Linux workspace and persistent
+user storage remain future implementation work.
+
+The [interactive virtual runtime](docs/interactive-virtual-runtime.md) also
+supports the ordinary Rockbox menu through QEMU keyboard/tablet input and
+host-requested graceful shutdown. Its acceptance and regression results are
+recorded there. Subsequent offline work recovered Sony update contents and
+examined the boot chain and kernel rollback code. These findings do not
+establish root or independent Linux boot on the retail Walkman; see the
+[current research status](docs/current-status.md).
 
 Three patches against Rockbox revision
 `afe91f1dfb1c9d90da928bb2bf8a0fbc6957ff09` address Opus end trimming/seeking,
@@ -77,8 +92,10 @@ proposed failures. A generic Qualcomm or Xperia procedure is insufficient.
 
 ## Build and test
 
-The file inspectors and unit tests use Python's standard library. Use Python
-3.12 or later and run from the repository root:
+The basic file inspectors and selected unit tests use Python's standard library.
+Other tools require optional packages such as `pefile`, `capstone`, or `unicorn`;
+consult each tool before invoking it. Use Python 3.12 or later and run the basic
+checks from the repository root:
 
 ```sh
 python -m unittest discover -s tests -v

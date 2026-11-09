@@ -1,12 +1,14 @@
 # Research roadmap
 
-Research through M9 is complete. M10 engineering and guarded characterization
-are in progress. KC1 confirms that the running stock kernel disables ordinary
-legacy kexec; that immediate execution route is closed for the observed build.
-The working system remains a generic ARM64 Linux prototype. Custom NW-A306
-execution, hardware compatibility and original-board restoration remain
-unverified. The target is independent Linux supporting native Rockbox and a
-general-purpose handheld environment.
+This roadmap preserves the original milestone structure and dated research
+record. For the current Sony-specific findings, limitations, and outstanding
+execution gates, see [current research status](current-status.md).
+
+The working independent-Linux prototype still runs on generic ARM64 QEMU.
+The Sony 3.06.00 firmware has since been studied offline, including its boot
+chain and an rtmutex rollback vulnerability candidate. No owner-controlled
+kernel execution, root shell, or independent Linux boot on the physical
+NW-A306 has been demonstrated. A model-matched recovery path is also unverified.
 
 The milestone reports below retain dated findings, source locators, negative
 results and test evidence. Future acceptance criteria describe requirements,
